@@ -1,0 +1,87 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+canvas {
+    border: 1px solid #222;
+}
+
+body {
+
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
+.preloader {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    height: 20px;
+    width: 600px;
+    background-color: grey;
+    border-radius: 100px;
+    position: absolute;
+}
+
+.preloader.done {
+    width: 0;
+    overflow: hidden;
+    padding-left: 0;
+    padding-right: 0;
+    display: none;
+}
+
+.text {
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+    color: white;
+    white-space: nowrap;
+}
+
+.progress {
+    position: absolute;
+    top: 5px;
+    transition: width .1s;
+    background-color: green;
+    height: 20px;
+    width: 0;
+    border-radius: 100px;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.progress:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: repeating-linear-gradient(
+            45deg,
+            #606dbc,
+            #606dbc 10px,
+            #465298 10px,
+            #465298 20px
+    );
+    z-index: 1;
+    background-size: 1000px 20px;
+    animation: move 2s linear infinite;
+    border-radius: 20px 8px 8px 20px;
+    overflow: hidden;
+}
+
+@keyframes move {
+    0% {
+        background-position: -27px 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}

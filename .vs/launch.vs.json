@@ -1,0 +1,21 @@
+{
+  "version": "0.2.1",
+  "defaults": {},
+  "configurations": [
+    {
+      "type": "nodejs",
+      "project": "top_down_test_game\\client\\js\\index.js",
+      "name": "index.js"
+    },
+    {
+      "type": "nodejs",
+      "project": "top_down_test_game\\client\\js\\multiplayer.js",
+      "name": "multiplayer.js"
+    },
+    {
+      "name": "index.js(1)",
+      "project": "top_down_test_game\\client\\js\\index.js",
+      "type": "nodejs"
+    }
+  ]
+}
