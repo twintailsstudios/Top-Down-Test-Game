@@ -4,6 +4,7 @@ var player;
 var playerCount = 1;
 var playerCountText;
 let controls = {};
+var menu;
 let gameover = 0;
 let collider;
 let player_id;
@@ -46,16 +47,16 @@ function preload() {
 	
 ////Preload Map Files////
 ////This loads the tilesheet that the map uses to generate pictures////
-	this.load.image('spritesheet', 'top_down_test_game/client/assets/images/spritesheet.png');
+	this.load.image('spritesheet', 'client/assets/images/spritesheet.png');
 ////This loads the map json file that says what coordinates have what pictures////
-        this.load.tilemapTiledJSON('level_2', 'top_down_test_game/client/assets/tilemaps/level2.json');
+        this.load.tilemapTiledJSON('level_2', 'client/assets/tilemaps/level2.json');
 /////actually preloads resources to use in game/////
 ////loads song file////
-    this.load.audio('bgm_calm', 'top_down_test_game/assets/music/Electrodoodle.mp3');
+    this.load.audio('bgm_calm', 'client/assets/music/Electrodoodle.mp3');
 ////loads sprite files to be used for players////
-	this.load.spritesheet('dude', 'top_down_test_game/client/assets/spritesheets/dude.png',{frameWidth: 32, frameHeight: 48});
-    this.load.spritesheet('dude2', 'top_down_test_game/client/assets/spritesheets/dude2.png',{frameWidth: 32, frameHeight: 48});
-
+	this.load.spritesheet('dude', 'client/assets/spritesheets/dude.png',{frameWidth: 32, frameHeight: 48});
+    this.load.spritesheet('dude2', 'client/assets/spritesheets/dude2.png',{frameWidth: 32, frameHeight: 48});
+	this.load.spritesheet('menu', 'client/assets/images/menu.png',{frameWidth: 144, frameHeight: 432});
 
 }
 
@@ -79,6 +80,7 @@ function create() {
 		const grass_layer = map.createStaticLayer('grass', tileset, 0, 0);
 		const background_layer = map.createStaticLayer('background', tileset, 0, 0);
 		const background2_layer = map.createStaticLayer('background2', tileset, 0, 0);
+		const background3_layer = map.createStaticLayer('background3', tileset, 0, 0);
         const ground_layer = map.createStaticLayer('blocked', tileset, 0, 0);
 		const ground2_layer = map.createStaticLayer('blocked2', tileset, 0, 0);
 		
@@ -93,6 +95,7 @@ function create() {
 		ground2_layer.setCollision(-1);
 		background_layer.setCollision(-1);
 		background2_layer.setCollision(-1);
+		background3_layer.setCollision(-1);
         ground_layer.setCollisionFromCollisionGroup();
 ////makes all the objects you can't walk through/////
     blocked = this.physics.add.staticGroup();
@@ -109,6 +112,15 @@ function create() {
 	player.setBounce(0.0);
     player.setCollideWorldBounds(false);
 	this.cameras.main.startFollow(player)
+	
+	//this.add.menu(this.world.centerX - 800, this.world.centerY +400);
+	//lol this isn't right...
+	//this.add.image(800, 400, 'menu');
+
+		'menu',function(){
+			console.log('pressed');
+		}
+		//menu.fixedToCamera = true;
 	
 /////creates the available animations to call on when moving sprites/////
     this.anims.create({
