@@ -15,8 +15,8 @@ let debug = false;
 /////configuring game state/////
 const config = {
     type: Phaser.AUTO,
-    width: 900,
-    height: 900,
+    width: 920,
+    height: 920,
     physics: {
         default: 'arcade',
         arcade: {
@@ -56,7 +56,7 @@ function preload() {
 ////loads sprite files to be used for players////
 	this.load.spritesheet('dude', 'client/assets/spritesheets/dude.png',{frameWidth: 32, frameHeight: 48});
     this.load.spritesheet('dude2', 'client/assets/spritesheets/dude2.png',{frameWidth: 32, frameHeight: 48});
-	this.load.spritesheet('menu', 'client/assets/images/menu.png',{frameWidth: 144, frameHeight: 432});
+	this.load.image('menu', 'client/assets/images/menu.png',{frameWidth: 144, frameHeight: 432});
 
 }
 
@@ -85,11 +85,11 @@ function create() {
 		const ground2_layer = map.createStaticLayer('blocked2', tileset, 0, 0);
 		
 ////defines the height that each map layer is displayed at and what tile IDs player can collide with////		
-		roof2_layer.depth = 9999
+		roof2_layer.depth = 4
 		roof2_layer.setCollision(-1);		
-		roof_layer.depth = 9998
+		roof_layer.depth = 3
 		roof_layer.setCollision(-1);
-		grass_layer.depth = 9997
+		grass_layer.depth = 2
 		grass_layer.setCollision(-1);
         ground_layer.setCollision([73, 74, 75, 292, 329, 450, 451, 452, 454, 455, 456, 482, 513, 514, 515, 516, 517, 518, 518, 583, 584, 589, 609, 610, 611, 645, 646, 647, 648, 651, 705, 706, 707, 712, 771, 772, 773, 774, 775, 776, 833, 834, 835, 836, 837, 838, 839, 840, 1300, 1301, 1302, 1363, 1364, 1366, 1367, 1427, 1431, 1491, 1492, 1494, 1495, 1556, 1557, 1558, 2369, 2370, 2371, 2433, 2434, 2435, 2497, 2498, 2499,]);
 		ground2_layer.setCollision(-1);
@@ -113,14 +113,22 @@ function create() {
     player.setCollideWorldBounds(false);
 	this.cameras.main.startFollow(player)
 	
-	//this.add.menu(this.world.centerX - 800, this.world.centerY +400);
-	//lol this isn't right...
-	//this.add.image(800, 400, 'menu');
+////Display menu////
+	{
+        this.input.setGlobalTopOnly(true);
 
-		'menu',function(){
-			console.log('pressed');
-		}
-		//menu.fixedToCamera = true;
+        var menu = this.add.image(848, 216, 'menu').setScrollFactor(0);
+		menu.depth = 5
+		//menu.setScrollFactor(4000, 4000)
+        menu.setInteractive();
+
+        menu.on('pointerdown', function () {
+
+            menu.tint = Math.random() * 0xffffff;
+
+        });
+    }
+
 	
 /////creates the available animations to call on when moving sprites/////
     this.anims.create({
