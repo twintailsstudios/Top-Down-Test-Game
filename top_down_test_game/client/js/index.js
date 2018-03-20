@@ -5,6 +5,7 @@ var playerCount = 1;
 var playerCountText;
 let controls = {};
 var menu;
+var leftbutton;
 let gameover = 0;
 let collider;
 let player_id;
@@ -57,6 +58,8 @@ function preload() {
 	this.load.spritesheet('dude', 'client/assets/spritesheets/dude.png',{frameWidth: 32, frameHeight: 48});
     this.load.spritesheet('dude2', 'client/assets/spritesheets/dude2.png',{frameWidth: 32, frameHeight: 48});
 	this.load.image('menu', 'client/assets/images/menu.png',{frameWidth: 144, frameHeight: 432});
+	this.load.image('leftbutton', 'client/assets/images/leftbutton.png');
+	this.load.image('rightbutton', 'client/assets/images/rightbutton.png');
 
 }
 
@@ -120,14 +123,36 @@ function create() {
         var menu = this.add.image(848, 216, 'menu').setScrollFactor(0);
 		menu.depth = 5
 		//menu.setScrollFactor(4000, 4000)
-        menu.setInteractive();
+			//menu.setInteractive();
+				//menu.on('pointerdown', function () {
+					//menu.tint = Math.random() * 0xffffff;
 
-        menu.on('pointerdown', function () {
+        //};
+    }
+	{
+        this.input.setGlobalTopOnly(true);
 
-            menu.tint = Math.random() * 0xffffff;
+        var leftbutton = this.add.image(819, 51, 'leftbutton').setScrollFactor(0);
+		leftbutton.depth = 6
+		//menu.setScrollFactor(4000, 4000)
+			leftbutton.setInteractive();
+				leftbutton.on('pointerdown', function () {
+					menu.tint = 0x0000FF;
 
         });
     }
+	{
+        this.input.setGlobalTopOnly(true);
+
+        var rightbutton = this.add.image(883, 51, 'rightbutton').setScrollFactor(0);
+		rightbutton.depth = 6
+		//menu.setScrollFactor(4000, 4000)
+			rightbutton.setInteractive();
+				rightbutton.on('pointerdown', function () {
+					menu.tint = 0x008000;
+
+        });
+    }	
 
 	
 /////creates the available animations to call on when moving sprites/////
