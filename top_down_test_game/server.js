@@ -66,4 +66,4 @@ console.log('server starting with ID: ', server_id);
 
 
 
-////Chat application////
+////Game Server////
