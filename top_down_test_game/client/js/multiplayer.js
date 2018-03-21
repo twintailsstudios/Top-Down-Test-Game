@@ -39,7 +39,7 @@ function update_movement(player, movement) {
 function start_multiplayer() {
 
 ////tells non-local players where to look to find the game files////
-    let socket = io('141.126.103.237:8081');
+    let socket = io(location.host);
 
 ////I have no idea what this data_storage stuff is////
     const data_storage = {connected: false};
@@ -107,16 +107,6 @@ function start_multiplayer() {
             }
         }
     });
-	
-////send movement data////
-////I''m guessing this is sending player coordinates to the server? I dunno///
-function send_data(message, data) {
-	return socket.emit(message, data)
-}
-return send_data
-
-
-
 
 ////outputs whether or not players are moving to change variables above////
 ////Honestly mostly useless right now I think?////
@@ -149,7 +139,12 @@ return send_data
             }
         }
     });
-	
+
+    //Utility function to send data
+    function send_data(message, data) {
+        return socket.emit(message, data)
+    }
+    return send_data;
 }
 
 
