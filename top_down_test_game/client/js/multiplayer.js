@@ -37,7 +37,7 @@ function update_movement(player, movement) {
 
 ////called from index.js, tells server when players connect and disconnect////
 function start_multiplayer() {
-	console.log('start_multiplayer function called')
+
 ////tells non-local players where to look to find the game files////
     let socket = io('141.126.103.237:8081');
 
@@ -50,7 +50,9 @@ function start_multiplayer() {
             console.log("connected", data);
             player_id = data.id;
             data_storage.connected = true;
+			console.log("data.id variable = ", data.id);
         }
+			console.log('data_storage variable = ', data_storage);
     });
 ////when server says player has joined, log player id in console////
     socket.on("joined", (data) => {
@@ -66,7 +68,7 @@ function start_multiplayer() {
             delete remote_players[data.id];
 
         }
-        console.log(remote_players);
+			console.log('logged out: ', remote_players);
         update_hud();
     });
 
@@ -99,6 +101,7 @@ function start_multiplayer() {
                     new_player.update();
                     go.physics.add.collider(new_player, blocked);
                     remote_players[data.id].player = new_player;
+						console.log('remote_players variable = ', remote_players);
                 }
                 if (!remote_players[data.id].player) delete remote_players[data.id];
             }
@@ -127,7 +130,7 @@ return send_data
 	
 	
 ///////////////////ARE THESE BEING CALLED PROPERLY?/////////////////
-	////adds a value to the array above if one of the arrows are pressed////
+////adds a value to the array above if one of the arrows are pressed////
 ////Are they even important at all?////
     document.addEventListener('keydown', function (e) {
         if (e.code in keybinds) {
@@ -155,7 +158,7 @@ return send_data
 ////So it must be important for movement...but I don't know what actually uses this data////
 function emit_movement() {
       if (send_data && player && player_id) {
-		
+
         const player_data = {};
         player_data.id = player_id;
         player_data.velocity = player.body.velocity;

@@ -32,6 +32,7 @@ server.listen(8081,function(){
 
 
 const players = {};
+
 ////if client disconnects & reconnects compare server ID////
 const server_id = Math.random().toString(36).substr(2, 5);
 ///player connects server will log connecting id and emit "connected" command
@@ -61,7 +62,7 @@ io.on('connection', function socket_handler(socket) {
 ;
 ////assign server an ID number////
 console.log('server starting with ID: ', server_id);
-
+//console.log('variable players = ', players);
 
 
 

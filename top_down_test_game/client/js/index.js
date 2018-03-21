@@ -134,7 +134,7 @@ function create() {
 
         var leftbutton = this.add.image(819, 51, 'leftbutton').setScrollFactor(0);
 		leftbutton.depth = 6
-		//menu.setScrollFactor(4000, 4000)
+
 			leftbutton.setInteractive();
 				leftbutton.on('pointerdown', function () {
 					menu.tint = 0x0000FF;
@@ -144,9 +144,9 @@ function create() {
 	{
         this.input.setGlobalTopOnly(true);
 
-        var rightbutton = this.add.image(883, 51, 'rightbutton').setScrollFactor(0);
+        var rightbutton = this.add.image(882, 51, 'rightbutton').setScrollFactor(0);
 		rightbutton.depth = 6
-		//menu.setScrollFactor(4000, 4000)
+
 			rightbutton.setInteractive();
 				rightbutton.on('pointerdown', function () {
 					menu.tint = 0x008000;
