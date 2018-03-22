@@ -1,38 +1,35 @@
 let remote_players = {};
-let movement = {Left: 0, Right: 0, Up: 0, Down: 0};
+let movement = {left: false, right: false, up: false, down: false}; //This is more intendedMovement, it may differ from actual velocities due to physics
 
 ////most of this does nothing at the moment, with the exception of the final "else" command////
 ////setting player velocity to 0 here is important because it keeps non-local player's sprites
 ////from sliding all over the screen////
 function update_movement(player, movement) {
     if (player) {
-        if (movement["Left"]) {
+        animation = '';
+        //X Axis
+        if (movement.left) {
             //player.setVelocityX(-160);
-
-            player.anims.play('otherleft', true);
+            animation = 'otherleft';
         }
-        else if (movement["Right"]) {
+        else if (movement.right) {
            // player.setVelocityX(160);
-
-			player.anims.play('otherright', true);
+			animation = 'otherright';
 		}
-		else if (movement['Up']) {
+		else player.setVelocityX(0);
+        //Y Axis
+		if (movement.up) {
 			//player.setVelocityY(-160);
-	
-			player.anims.play('right', true);
+			if (!animation) animation = 'otherright';
 		}
-		else if (movement['Down']) {
+		else if (movement.down) {
 			//player.setVelocityY(160);
-	
-			player.anims.play('left', true);
+            if (!animation) animation = 'otherright';
 		}
-		else{
-			player.setVelocityX(0);
-			player.setVelocityY(0);
-			player.anims.play('turn');
+		else player.setVelocityY(0);
+        player.anims.play(animation || 'turn', true);
 	}
-
-}}
+}
 
 
 ////called from index.js, tells server when players connect and disconnect////
@@ -118,7 +115,7 @@ function start_multiplayer() {
 		ArrowDown: "Down"
     };
 	
-	
+/* These are now combined as part of the update tick since the keydown/keyup events weren't triggering promptly
 ///////////////////ARE THESE BEING CALLED PROPERLY?/////////////////
 ////adds a value to the array above if one of the arrows are pressed////
 ////Are they even important at all?////
@@ -139,7 +136,7 @@ function start_multiplayer() {
             }
         }
     });
-
+*/
     //Utility function to send data
     function send_data(message, data) {
         return socket.emit(message, data)
@@ -153,7 +150,6 @@ function start_multiplayer() {
 ////So it must be important for movement...but I don't know what actually uses this data////
 function emit_movement() {
       if (send_data && player && player_id) {
-
         const player_data = {};
         player_data.id = player_id;
         player_data.velocity = player.body.velocity;

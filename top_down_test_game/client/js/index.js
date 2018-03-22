@@ -213,33 +213,39 @@ function update() {
 ////if an arrow key is pressed, move local player in appropriate direction////
 ////also assigns animations to local player sprite////
 ////emit_movement calls this function in the multiplayer.js file////
+        let animation = '';
+        let velocityX = 0, velocityY = 0;
+        //X Axis
         if (cursors.left.isDown) {
-            player.setVelocityX(-160);
-				emit_movement();
-            player.anims.play('left', true);
+            velocityX = -160;
+            animation = 'left';
         }
         else if (cursors.right.isDown) {
-            player.setVelocityX(160);
-				emit_movement();
-            player.anims.play('right', true);
+            velocityX = 160;
+            animation = 'right';
         }
-        else if (cursors.up.isDown) {
-			player.setVelocityY(-160);
-					emit_movement();
-			player.anims.play('right', true);
+        //Y Axis
+        if (cursors.up.isDown) {
+			velocityY = -160;
+            if (!animation) animation = 'right';
 		}
 		else if (cursors.down.isDown) {
-			player.setVelocityY(160);
-					emit_movement();
-			player.anims.play('left', true);
+			velocityY = 160;
+            if (!animation) animation = 'left';
 		}
-		else{
-			player.setVelocityX(0);
-			player.setVelocityY(0);
-				//emit_movement();
-			player.anims.play('turn');
-		}
-	
+        player.setVelocityX(velocityX);
+        player.setVelocityY(velocityY);
+        //Notify server if we have either velocity OR the previous frame had some movement (so that it receives stops)
+        if (velocityX || velocityY || movement.left || movement.right || movement.up || movement.down) {
+            //Update actual movement before sending
+            movement.left = (velocityX < 0);
+            movement.right = (velocityX > 0);
+            movement.up = (velocityY < 0);
+            movement.down = (velocityY > 0);
+            //console.log('Sending ', movement);
+            emit_movement();
+        }
+        player.anims.play(animation || 'turn', true);
 	
 ////haven't figured out what this is for yet...but seems important////
 ////Has something to do with updating player movements for other clients?///
