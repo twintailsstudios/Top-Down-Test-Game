@@ -5,7 +5,13 @@ let playerCount = 1;
 let playerCountText;
 let controls = {};
 let menu;
-let leftbutton;
+let numberbutton;
+let looktab;
+let itemstab;
+let spellstab;
+let maptab;
+let optionstab;
+let tabdisplay;
 let gameover = 0;
 let collider;
 let player_id;
@@ -228,10 +234,19 @@ var UiScene = new Phaser.Class({
 		this.pic;
 	},
 	preload: function () {
-	this.load.image('menu', 'client/assets/images/menu.png',{frameWidth: 144, frameHeight: 432});
 	this.load.image('menuframe', 'client/assets/images/menuframe.png',{frameWidth: 1921, frameHeight: 1041});
-	this.load.image('leftbutton', 'client/assets/images/leftbutton.png');
-	this.load.image('rightbutton', 'client/assets/images/rightbutton.png');
+	this.load.image('numberbutton', 'client/assets/images/numberbutton.png');
+	this.load.image('looktab', 'client/assets/images/looktab.png');
+	this.load.image('lookdisplay', 'client/assets/images/lookdisplay.png');
+	this.load.image('itemstab', 'client/assets/images/itemstab.png');
+	this.load.image('itemsdisplay', 'client/assets/images/itemsdisplay.png');
+	this.load.image('spellstab', 'client/assets/images/spellstab.png');
+	this.load.image('spellsdisplay', 'client/assets/images/spellsdisplay.png');
+	this.load.image('maptab', 'client/assets/images/maptab.png');
+	this.load.image('mapdisplay', 'client/assets/images/mapdisplay.png');
+	this.load.image('optionstab', 'client/assets/images/optionstab.png');
+	this.load.image('optionsdisplay', 'client/assets/images/optionsdisplay.png');
+	this.load.image('clothesavatar', 'client/assets/images/clothesavatar.png');
 	},
 	create: function () {
 ////Display menu////
@@ -240,37 +255,188 @@ var UiScene = new Phaser.Class({
 
         var menu = this.add.image(960.5, 460.5, 'menuframe').setScrollFactor(0);
 		menu.depth = 5
-		//menu.setScrollFactor(4000, 4000)
-			//menu.setInteractive();
-				//menu.on('pointerdown', function () {
-					//menu.tint = Math.random() * 0xffffff;
-
-        
 		}
+		
 		{
-        this.input.setGlobalTopOnly(true);
+		this.input.setGlobalTopOnly(true);
 
-        var leftbutton = this.add.image(819, 51, 'leftbutton').setScrollFactor(0);
-		leftbutton.depth = 6
+			var numberbutton = this.add.image(181, 903, 'numberbutton').setScrollFactor(0);
+			numberbutton.depth = 6
 
-			leftbutton.setInteractive();
-				leftbutton.on('pointerdown', function () {
-					menu.tint = 0x0000FF;
-
-        });
+			numberbutton.setInteractive();
+			numberbutton.on('pointerdown', function () {
+				menu.tint = 0x0000FF;
+			});
 		}
+		
 		{
-        this.input.setGlobalTopOnly(true);
+		this.input.setGlobalTopOnly(true);
 
-        var rightbutton = this.add.image(882, 51, 'rightbutton').setScrollFactor(0);
-		rightbutton.depth = 6
+			var numberbutton = this.add.image(250, 903, 'numberbutton').setScrollFactor(0);
+			numberbutton.depth = 6
 
-			rightbutton.setInteractive();
-				rightbutton.on('pointerdown', function () {
-					menu.tint = 0x008000;
+			numberbutton.setInteractive();
+			numberbutton.on('pointerdown', function () {
+				menu.tint = 0x800000;
+			});
+		}
+			
+		{
+		this.input.setGlobalTopOnly(true);
 
-        });
-		}	
+			var numberbutton = this.add.image(317, 903, 'numberbutton').setScrollFactor(0);
+			numberbutton.depth = 6
+
+			numberbutton.setInteractive();
+			numberbutton.on('pointerdown', function () {
+				menu.tint = 0xFFF00;
+			});
+		}
+			
+		{
+		this.input.setGlobalTopOnly(true);
+
+			var numberbutton = this.add.image(383, 903, 'numberbutton').setScrollFactor(0);
+			numberbutton.depth = 6
+
+			numberbutton.setInteractive();
+			numberbutton.on('pointerdown', function () {
+				menu.tint = 0x008000;
+			});
+		}
+		
+		{
+		this.input.setGlobalTopOnly(true);
+
+			var numberbutton = this.add.image(448, 903, 'numberbutton').setScrollFactor(0);
+			numberbutton.depth = 6
+
+			numberbutton.setInteractive();
+			numberbutton.on('pointerdown', function () {
+				menu.tint = 0x33FFE9;
+			});
+		}
+		
+		{
+		this.input.setGlobalTopOnly(true);
+
+			var numberbutton = this.add.image(512, 903, 'numberbutton').setScrollFactor(0);
+			numberbutton.depth = 6
+
+			numberbutton.setInteractive();
+			numberbutton.on('pointerdown', function () {
+				menu.tint = 0xFCFF33;
+			});
+		}
+		
+		{
+		this.input.setGlobalTopOnly(true);
+
+			var numberbutton = this.add.image(575, 903, 'numberbutton').setScrollFactor(0);
+			numberbutton.depth = 6
+
+			numberbutton.setInteractive();
+			numberbutton.on('pointerdown', function () {
+				menu.tint = 0xFF3333;
+			});
+		}
+		
+		{
+		this.input.setGlobalTopOnly(true);
+
+			var numberbutton = this.add.image(637, 903, 'numberbutton').setScrollFactor(0);
+			numberbutton.depth = 6
+
+			numberbutton.setInteractive();
+			numberbutton.on('pointerdown', function () {
+				menu.tint = 0xFFFFFF;
+			});
+		}
+		
+		{
+		this.input.setGlobalTopOnly(true);
+
+			var looktab = this.add.image(1039, 15, 'looktab').setScrollFactor(0);
+			looktab.depth = 6
+
+			looktab.setInteractive();
+			looktab.on('pointerdown', function () {
+
+				//var tabdisplay = this.add.image(1440, 250, 'lookdisplay').setScrollFactor(0);
+				looktab.tint = 0x33FFE9;
+			});
+		}
+		
+		{
+		this.input.setGlobalTopOnly(true);
+
+			var itemstab = this.add.image(1176, 15, 'itemstab').setScrollFactor(0);
+			itemstab.depth = 6
+
+			itemstab.setInteractive();
+			itemstab.on('pointerdown', function () {
+
+				//var tabdisplay = this.add.image(1039, 30, 'itemsdisplay').setScrollFactor(0);
+				itemstab.tint = 0x33FFE9;
+			});
+		}
+		
+		{
+		this.input.setGlobalTopOnly(true);
+
+			var spellstab = this.add.image(1313, 15, 'spellstab').setScrollFactor(0);
+			spellstab.depth = 6
+
+			spellstab.setInteractive();
+			spellstab.on('pointerdown', function () {
+
+				//var tabdisplay = this.add.image(1039, 30, 'spellsdisplay').setScrollFactor(0);
+				spellstab.tint = 0x33FFE9;
+			});
+		}
+		
+		{
+		this.input.setGlobalTopOnly(true);
+
+			var maptab = this.add.image(1450, 15, 'maptab').setScrollFactor(0);
+			maptab.depth = 6
+
+			maptab.setInteractive();
+			maptab.on('pointerdown', function () {
+
+				//var tabdisplay = this.add.image(1039, 30, 'mapdisplay').setScrollFactor(0);
+				maptab.tint = 0x33FFE9;
+			});
+		}
+		
+		{
+		this.input.setGlobalTopOnly(true);
+
+			var optionstab = this.add.image(1587, 15, 'optionstab').setScrollFactor(0);
+			optionstab.depth = 6
+
+			optionstab.setInteractive();
+			optionstab.on('pointerdown', function () {
+
+				//var tabdisplay = this.add.image(1039, 30, 'optionsdisplay').setScrollFactor(0);
+				optionstab.tint = 0x33FFE9;
+			});
+		}
+		
+		{
+		this.input.setGlobalTopOnly(true);
+
+			var clothesbutton = this.add.image(48, 903, 'numberbutton').setScrollFactor(0);
+			clothesbutton.depth = 6
+
+			clothesbutton.setInteractive();
+			clothesbutton.on('pointerdown', function () {
+				//var tabdisplay = this.add.image(81, 792, 'clothesavatar').setScrollFactor(0);
+				clothesbutton.tint = 0x0000FF;
+			});
+		}
+			
+	
 
 	
 	},	
