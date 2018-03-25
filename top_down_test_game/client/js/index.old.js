@@ -1,34 +1,40 @@
 /////creating universal variables/////
 let blocked;
-let player;
-let playerCount = 1;
-let playerCountText;
+var player;
+var playerCount = 1;
+var playerCountText;
 let controls = {};
-let menu;
-let leftbutton;
+var menu;
+var leftbutton;
 let gameover = 0;
 let collider;
 let player_id;
-let cam1;
-let cam2;
 let send_data = null;
 let go;
 let debug = false;
 
-
-////create GameScene////
-var GameScene = new Phaser.Class({
-	Extends: Phaser.Scene,
-	initialize:
-	function GameScene ()
-	{
-		Phaser.Scene.call(this, { key: 'GameScene', active: true });
-		this.pic;
-	},
-
+/////configuring game state/////
+const config = {
+    type: Phaser.AUTO,
+    width: 920,
+    height: 920,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: false
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
+    }
+};
+////create game////
+const game = new Phaser.Game(config);
 
 ////Load up all assets game uses before game starts ////
-preload: function () {
+function preload() {
 /////is supposed to display loading bar? I'm not sure if this is working right..../////
     this.load.on('fileprogress', function (file, value) {
         console.log(value);
@@ -51,11 +57,14 @@ preload: function () {
 ////loads sprite files to be used for players////
 	this.load.spritesheet('dude', 'client/assets/spritesheets/dude.png',{frameWidth: 32, frameHeight: 48});
     this.load.spritesheet('dude2', 'client/assets/spritesheets/dude2.png',{frameWidth: 32, frameHeight: 48});
+	this.load.image('menu', 'client/assets/images/menu.png',{frameWidth: 144, frameHeight: 432});
+	this.load.image('leftbutton', 'client/assets/images/leftbutton.png');
+	this.load.image('rightbutton', 'client/assets/images/rightbutton.png');
 
-},
+}
 
 ////This function actually generates in the game what has been preloaded////
-create: function () {
+function create() {
     const game = this;
 /////plays music/////
     let background_music = this.sound.add('bgm_calm');
@@ -105,14 +114,47 @@ create: function () {
         player.setOffset(11, 40);
 	player.setBounce(0.0);
     player.setCollideWorldBounds(false);
-	//this.cameras.main.startFollow(player)
-	cam1 = this.cameras.main.setSize(920, 920).startFollow(player).setName('Camera 1');
+	this.cameras.main.startFollow(player)
+	
+////Display menu////
+	{
+        this.input.setGlobalTopOnly(true);
 
-	//camera.follow(player, FOLLOW_STYLE, 0.5, 0.5, 64, 64);
-		//cameras.main.setOffset(-50, 0);
+        var menu = this.add.image(848, 216, 'menu').setScrollFactor(0);
+		menu.depth = 5
+		//menu.setScrollFactor(4000, 4000)
+			//menu.setInteractive();
+				//menu.on('pointerdown', function () {
+					//menu.tint = Math.random() * 0xffffff;
 
+        //};
+    }
+	{
+        this.input.setGlobalTopOnly(true);
 
+        var leftbutton = this.add.image(819, 51, 'leftbutton').setScrollFactor(0);
+		leftbutton.depth = 6
 
+			leftbutton.setInteractive();
+				leftbutton.on('pointerdown', function () {
+					menu.tint = 0x0000FF;
+
+        });
+    }
+	{
+        this.input.setGlobalTopOnly(true);
+
+        var rightbutton = this.add.image(882, 51, 'rightbutton').setScrollFactor(0);
+		rightbutton.depth = 6
+
+			rightbutton.setInteractive();
+				rightbutton.on('pointerdown', function () {
+					menu.tint = 0x008000;
+
+        });
+    }	
+
+	
 /////creates the available animations to call on when moving sprites/////
     this.anims.create({
         key: 'otherleft',
@@ -162,131 +204,51 @@ create: function () {
 
 /////call start_multiplayer function in multiplayer.js file/////
 	send_data = start_multiplayer();
-},
+}
 
 
 
 ////Game continually loops this function to check for input////
-update: function () {
+function update() {
 ////if an arrow key is pressed, move local player in appropriate direction////
 ////also assigns animations to local player sprite////
 ////emit_movement calls this function in the multiplayer.js file////
-        let animation = '';
-        let velocityX = 0, velocityY = 0;
-        //X Axis
         if (cursors.left.isDown) {
-            velocityX = -160;
-            animation = 'left';
+            player.setVelocityX(-160);
+				emit_movement();
+            player.anims.play('left', true);
         }
         else if (cursors.right.isDown) {
-            velocityX = 160;
-            animation = 'right';
+            player.setVelocityX(160);
+				emit_movement();
+            player.anims.play('right', true);
         }
-        //Y Axis
-        if (cursors.up.isDown) {
-			velocityY = -160;
-            if (!animation) animation = 'right';
+        else if (cursors.up.isDown) {
+			player.setVelocityY(-160);
+					emit_movement();
+			player.anims.play('right', true);
 		}
 		else if (cursors.down.isDown) {
-			velocityY = 160;
-            if (!animation) animation = 'left';
+			player.setVelocityY(160);
+					emit_movement();
+			player.anims.play('left', true);
 		}
-        player.setVelocityX(velocityX);
-        player.setVelocityY(velocityY);
-        //Notify server if we have either velocity OR the previous frame had some movement (so that it receives stops)
-        if (velocityX || velocityY || movement.left || movement.right || movement.up || movement.down) {
-            //Update actual movement before sending
-            movement.left = (velocityX < 0);
-            movement.right = (velocityX > 0);
-            movement.up = (velocityY < 0);
-            movement.down = (velocityY > 0);
-            //console.log('Sending ', movement);
-            emit_movement();
-        }
-        player.anims.play(animation || 'turn', true);
+		else{
+			player.setVelocityX(0);
+			player.setVelocityY(0);
+				//emit_movement();
+			player.anims.play('turn');
+		}
+	
 	
 ////haven't figured out what this is for yet...but seems important////
 ////Has something to do with updating player movements for other clients?///
         for (let id in remote_players) {
             if (remote_players.hasOwnProperty(id)) {
                 if (remote_players[id].player && remote_players[id].movement) {
-                    //update_movement(remote_players[id].player, remote_players[id].movement);
+                    update_movement(remote_players[id].player, remote_players[id].movement);
                 }
             }
 
         }
-},
-});
-
-////create UiScene////
-var UiScene = new Phaser.Class({
-	Extends: Phaser.Scene,
-	initialize:
-	function UiScene ()
-	{
-		Phaser.Scene.call(this, { key: 'UiScene', active: true });
-		this.pic;
-	},
-	preload: function () {
-	this.load.image('menu', 'client/assets/images/menu.png',{frameWidth: 144, frameHeight: 432});
-	this.load.image('menuframe', 'client/assets/images/menuframe.png',{frameWidth: 1921, frameHeight: 1041});
-	this.load.image('leftbutton', 'client/assets/images/leftbutton.png');
-	this.load.image('rightbutton', 'client/assets/images/rightbutton.png');
-	},
-	create: function () {
-////Display menu////
-		{
-        this.input.setGlobalTopOnly(true);
-
-        var menu = this.add.image(960.5, 460.5, 'menuframe').setScrollFactor(0);
-		menu.depth = 5
-		//menu.setScrollFactor(4000, 4000)
-			//menu.setInteractive();
-				//menu.on('pointerdown', function () {
-					//menu.tint = Math.random() * 0xffffff;
-
-        
-		}
-		{
-        this.input.setGlobalTopOnly(true);
-
-        var leftbutton = this.add.image(819, 51, 'leftbutton').setScrollFactor(0);
-		leftbutton.depth = 6
-
-			leftbutton.setInteractive();
-				leftbutton.on('pointerdown', function () {
-					menu.tint = 0x0000FF;
-
-        });
-		}
-		{
-        this.input.setGlobalTopOnly(true);
-
-        var rightbutton = this.add.image(882, 51, 'rightbutton').setScrollFactor(0);
-		rightbutton.depth = 6
-
-			rightbutton.setInteractive();
-				rightbutton.on('pointerdown', function () {
-					menu.tint = 0x008000;
-
-        });
-		}	
-
-	
-	},	
-});
-/////configuring game state/////
-const config = {
-    type: Phaser.AUTO,
-    width: 1921,
-    height: 1041,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            debug: true
-        }
-    },
-    scene: 
-		[ GameScene, UiScene ]
-};
-const Game = new Phaser.Game(config);
+}

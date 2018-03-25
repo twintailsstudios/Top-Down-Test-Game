@@ -1,35 +1,38 @@
 let remote_players = {};
-let movement = {left: false, right: false, up: false, down: false}; //This is more intendedMovement, it may differ from actual velocities due to physics
+let movement = {Left: 0, Right: 0, Up: 0, Down: 0};
 
 ////most of this does nothing at the moment, with the exception of the final "else" command////
 ////setting player velocity to 0 here is important because it keeps non-local player's sprites
 ////from sliding all over the screen////
 function update_movement(player, movement) {
     if (player) {
-        animation = '';
-        //X Axis
-        if (movement.left) {
+        if (movement["Left"]) {
             //player.setVelocityX(-160);
-            animation = 'otherleft';
+
+            player.anims.play('otherleft', true);
         }
-        else if (movement.right) {
+        else if (movement["Right"]) {
            // player.setVelocityX(160);
-			animation = 'otherright';
+
+			player.anims.play('otherright', true);
 		}
-		else player.setVelocityX(0);
-        //Y Axis
-		if (movement.up) {
+		else if (movement['Up']) {
 			//player.setVelocityY(-160);
-			if (!animation) animation = 'otherright';
+	
+			player.anims.play('right', true);
 		}
-		else if (movement.down) {
+		else if (movement['Down']) {
 			//player.setVelocityY(160);
-            if (!animation) animation = 'otherright';
+	
+			player.anims.play('left', true);
 		}
-		else player.setVelocityY(0);
-        player.anims.play(animation || 'turn', true);
+		else{
+			player.setVelocityX(0);
+			player.setVelocityY(0);
+			player.anims.play('turn');
 	}
-}
+
+}}
 
 
 ////called from index.js, tells server when players connect and disconnect////
@@ -89,9 +92,9 @@ function start_multiplayer() {
 ////This part I know! Defines spawn point of non-local players along with their sprite////
 ////also defines hitbox of non-local player sprites and gives them physics to they can collide with things////
                     const new_player = go.physics.add.sprite(4320, 4320, 'dude2');
-                    new_player.setSize(8, 8);
-					new_player.setOffset(11, 40);
-                    new_player.setBounce(0.0);
+                    player.setSize(8, 8);
+					player.setOffset(11, 40);
+                    player.setBounce(0.0);
                     new_player.setCollideWorldBounds(false);
                     new_player.setMaxVelocity(160, 400);
                     new_player.setDragX(350);
@@ -104,6 +107,16 @@ function start_multiplayer() {
             }
         }
     });
+	
+////send movement data////
+////I'm guessing this is sending player coordinates to the server? I dunno///
+function send_data(message, data) {
+	return socket.emit(message, data)
+}
+return send_data
+
+
+
 
 ////outputs whether or not players are moving to change variables above////
 ////Honestly mostly useless right now I think?////
@@ -115,7 +128,7 @@ function start_multiplayer() {
 		ArrowDown: "Down"
     };
 	
-/* These are now combined as part of the update tick since the keydown/keyup events weren't triggering promptly
+	
 ///////////////////ARE THESE BEING CALLED PROPERLY?/////////////////
 ////adds a value to the array above if one of the arrows are pressed////
 ////Are they even important at all?////
@@ -136,20 +149,16 @@ function start_multiplayer() {
             }
         }
     });
-*/
-    //Utility function to send data
-    function send_data(message, data) {
-        return socket.emit(message, data)
-    }
-    return send_data;
+	
 }
 
 
-////sends player position and velocity to server? MAybe also?////
+////sends player position and velocity to server? Maybe also?////
 ////This is called whenever a local player presses an arrow key...////
 ////So it must be important for movement...but I don't know what actually uses this data////
 function emit_movement() {
       if (send_data && player && player_id) {
+
         const player_data = {};
         player_data.id = player_id;
         player_data.velocity = player.body.velocity;
