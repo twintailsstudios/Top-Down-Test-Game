@@ -36,7 +36,7 @@ function update_movement(player, movement) {
 function start_multiplayer() {
 
 ////tells non-local players where to look to find the game files////
-    let socket = io('141.126.103.237:8081');
+    let socket = io(location.host);
 
 ////I have no idea what this data_storage stuff is////
     const data_storage = {connected: false};
