@@ -1,17 +1,19 @@
 /////creating universal variables/////
+const variableGroup = {
+    menu:[],
+	looktab:[],
+	itemstab:[],
+	spellstab:[],
+	maptab:[],
+	optionstab:[],
+	tabdisplay:[],
+	numberbutton:[],
+};
 let blocked;
 let player;
 let playerCount = 1;
 let playerCountText;
 let controls = {};
-let menu;
-let numberbutton;
-let looktab;
-let itemstab;
-let spellstab;
-let maptab;
-let optionstab;
-let tabdisplay;
 let gameover = 0;
 let collider;
 let player_id;
@@ -253,173 +255,173 @@ var UiScene = new Phaser.Class({
 		{
         this.input.setGlobalTopOnly(true);
 
-        var menu = this.add.image(960.5, 460.5, 'menuframe').setScrollFactor(0);
-		menu.depth = 5
+        variableGroup.menu = this.add.image(960.5, 460.5, 'menuframe').setScrollFactor(0);
+		variableGroup.menu.depth = 5
 		}
 		
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var numberbutton = this.add.image(181, 903, 'numberbutton').setScrollFactor(0);
-			numberbutton.depth = 6
+			variableGroup.numberbutton = this.add.image(181, 903, 'numberbutton').setScrollFactor(0);
+			variableGroup.numberbutton.depth = 6
 
-			numberbutton.setInteractive();
-			numberbutton.on('pointerdown', function () {
-				menu.tint = 0x0000FF;
+			variableGroup.numberbutton.setInteractive();
+			variableGroup.numberbutton.on('pointerdown', function () {
+				variableGroup.menu.tint = 0x0000FF;
 			});
 		}
 		
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var numberbutton = this.add.image(250, 903, 'numberbutton').setScrollFactor(0);
-			numberbutton.depth = 6
+			variableGroup.numberbutton = this.add.image(250, 903, 'numberbutton').setScrollFactor(0);
+			variableGroup.numberbutton.depth = 6
 
-			numberbutton.setInteractive();
-			numberbutton.on('pointerdown', function () {
-				menu.tint = 0x800000;
+			variableGroup.numberbutton.setInteractive();
+			variableGroup.numberbutton.on('pointerdown', function () {
+				variableGroup.menu.tint = 0x800000;
 			});
 		}
 			
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var numberbutton = this.add.image(317, 903, 'numberbutton').setScrollFactor(0);
-			numberbutton.depth = 6
+			variableGroup.numberbutton = this.add.image(317, 903, 'numberbutton').setScrollFactor(0);
+			variableGroup.numberbutton.depth = 6
 
-			numberbutton.setInteractive();
-			numberbutton.on('pointerdown', function () {
-				menu.tint = 0xFFF00;
+			variableGroup.numberbutton.setInteractive();
+			variableGroup.numberbutton.on('pointerdown', function () {
+				variableGroup.menu.tint = 0xFFF00;
 			});
 		}
 			
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var numberbutton = this.add.image(383, 903, 'numberbutton').setScrollFactor(0);
-			numberbutton.depth = 6
+			variableGroup.numberbutton = this.add.image(383, 903, 'numberbutton').setScrollFactor(0);
+			variableGroup.numberbutton.depth = 6
 
-			numberbutton.setInteractive();
-			numberbutton.on('pointerdown', function () {
-				menu.tint = 0x008000;
+			variableGroup.numberbutton.setInteractive();
+			variableGroup.numberbutton.on('pointerdown', function () {
+				variableGroup.menu.tint = 0x008000;
 			});
 		}
 		
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var numberbutton = this.add.image(448, 903, 'numberbutton').setScrollFactor(0);
-			numberbutton.depth = 6
+			variableGroup.numberbutton = this.add.image(448, 903, 'numberbutton').setScrollFactor(0);
+			variableGroup.numberbutton.depth = 6
 
-			numberbutton.setInteractive();
-			numberbutton.on('pointerdown', function () {
-				menu.tint = 0x33FFE9;
+			variableGroup.numberbutton.setInteractive();
+			variableGroup.numberbutton.on('pointerdown', function () {
+				variableGroup.menu.tint = 0x33FFE9;
 			});
 		}
 		
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var numberbutton = this.add.image(512, 903, 'numberbutton').setScrollFactor(0);
-			numberbutton.depth = 6
+			variableGroup.numberbutton = this.add.image(512, 903, 'numberbutton').setScrollFactor(0);
+			variableGroup.numberbutton.depth = 6
 
-			numberbutton.setInteractive();
-			numberbutton.on('pointerdown', function () {
-				menu.tint = 0xFCFF33;
+			variableGroup.numberbutton.setInteractive();
+			variableGroup.numberbutton.on('pointerdown', function () {
+				variableGroup.menu.tint = 0xFCFF33;
 			});
 		}
 		
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var numberbutton = this.add.image(575, 903, 'numberbutton').setScrollFactor(0);
-			numberbutton.depth = 6
+			variableGroup.numberbutton = this.add.image(575, 903, 'numberbutton').setScrollFactor(0);
+			variableGroup.numberbutton.depth = 6
 
-			numberbutton.setInteractive();
-			numberbutton.on('pointerdown', function () {
-				menu.tint = 0xFF3333;
+			variableGroup.numberbutton.setInteractive();
+			variableGroup.numberbutton.on('pointerdown', function () {
+				variableGroup.menu.tint = 0xFF3333;
 			});
 		}
 		
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var numberbutton = this.add.image(637, 903, 'numberbutton').setScrollFactor(0);
-			numberbutton.depth = 6
+			variableGroup.numberbutton = this.add.image(637, 903, 'numberbutton').setScrollFactor(0);
+			variableGroup.numberbutton.depth = 6
 
-			numberbutton.setInteractive();
-			numberbutton.on('pointerdown', function () {
-				menu.tint = 0xFFFFFF;
+			variableGroup.numberbutton.setInteractive();
+			variableGroup.numberbutton.on('pointerdown', function () {
+				variableGroup.menu.tint = 0xFFFFFF;
 			});
 		}
 		
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var looktab = this.add.image(1039, 15, 'looktab').setScrollFactor(0);
-			looktab.depth = 6
+			variableGroup.looktab = this.add.image(1039, 15, 'looktab').setScrollFactor(0);
+			variableGroup.looktab.depth = 6
 
-			looktab.setInteractive();
-			looktab.on('pointerdown', function () {
+			variableGroup.looktab.setInteractive();
+			variableGroup.looktab.on('pointerdown', function () {
 
-				//var tabdisplay = this.add.image(1440, 250, 'lookdisplay').setScrollFactor(0);
-				looktab.tint = 0x33FFE9;
+				//variableGroup.tabdisplay = this.add.image(1440, 250, 'lookdisplay').setScrollFactor(0);
+				variableGroup.looktab.tint = 0x33FFE9;
 			});
 		}
 		
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var itemstab = this.add.image(1176, 15, 'itemstab').setScrollFactor(0);
-			itemstab.depth = 6
+			variableGroup.itemstab = this.add.image(1176, 15, 'itemstab').setScrollFactor(0);
+			variableGroup.itemstab.depth = 6
 
-			itemstab.setInteractive();
-			itemstab.on('pointerdown', function () {
+			variableGroup.itemstab.setInteractive();
+			variableGroup.itemstab.on('pointerdown', function () {
 
-				//var tabdisplay = this.add.image(1039, 30, 'itemsdisplay').setScrollFactor(0);
-				itemstab.tint = 0x33FFE9;
+				//variableGroup.tabdisplay = this.add.image(1039, 30, 'itemsdisplay').setScrollFactor(0);
+				variableGroup.itemstab.tint = 0x33FFE9;
 			});
 		}
 		
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var spellstab = this.add.image(1313, 15, 'spellstab').setScrollFactor(0);
-			spellstab.depth = 6
+			variableGroup.spellstab = this.add.image(1313, 15, 'spellstab').setScrollFactor(0);
+			variableGroup.spellstab.depth = 6
 
-			spellstab.setInteractive();
-			spellstab.on('pointerdown', function () {
+			variableGroup.spellstab.setInteractive();
+			variableGroup.spellstab.on('pointerdown', function () {
 
-				//var tabdisplay = this.add.image(1039, 30, 'spellsdisplay').setScrollFactor(0);
-				spellstab.tint = 0x33FFE9;
+				//variableGroup.tabdisplay = this.add.image(1039, 30, 'spellsdisplay').setScrollFactor(0);
+				variableGroup.spellstab.tint = 0x33FFE9;
 			});
 		}
 		
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var maptab = this.add.image(1450, 15, 'maptab').setScrollFactor(0);
-			maptab.depth = 6
+			variableGroup.maptab = this.add.image(1450, 15, 'maptab').setScrollFactor(0);
+			variableGroup.maptab.depth = 6
 
-			maptab.setInteractive();
-			maptab.on('pointerdown', function () {
+			variableGroup.maptab.setInteractive();
+			variableGroup.maptab.on('pointerdown', function () {
 
-				//var tabdisplay = this.add.image(1039, 30, 'mapdisplay').setScrollFactor(0);
-				maptab.tint = 0x33FFE9;
+				//variableGroup.tabdisplay = this.add.image(1039, 30, 'mapdisplay').setScrollFactor(0);
+				variableGroup.maptab.tint = 0x33FFE9;
 			});
 		}
 		
 		{
 		this.input.setGlobalTopOnly(true);
 
-			var optionstab = this.add.image(1587, 15, 'optionstab').setScrollFactor(0);
-			optionstab.depth = 6
+			variableGroup.optionstab = this.add.image(1587, 15, 'optionstab').setScrollFactor(0);
+			variableGroup.optionstab.depth = 6
 
-			optionstab.setInteractive();
-			optionstab.on('pointerdown', function () {
+			variableGroup.optionstab.setInteractive();
+			variableGroup.optionstab.on('pointerdown', function () {
 
-				//var tabdisplay = this.add.image(1039, 30, 'optionsdisplay').setScrollFactor(0);
-				optionstab.tint = 0x33FFE9;
+				//variableGroup.tabdisplay = this.add.image(1039, 30, 'optionsdisplay').setScrollFactor(0);
+				variableGroup.optionstab.tint = 0x33FFE9;
 			});
 		}
 		
@@ -431,7 +433,7 @@ var UiScene = new Phaser.Class({
 
 			clothesbutton.setInteractive();
 			clothesbutton.on('pointerdown', function () {
-				//var tabdisplay = this.add.image(81, 792, 'clothesavatar').setScrollFactor(0);
+				//variableGroup.tabdisplay = this.add.image(81, 792, 'clothesavatar').setScrollFactor(0);
 				clothesbutton.tint = 0x0000FF;
 			});
 		}
