@@ -34,7 +34,7 @@ This means it is up and running properly! Congratulations! You are now ready to 
  2. **Integrate chat program.** 
 Make chat program display on top of the game in the bottom right quadrant of the screen.
  3. **Implement usernames.**
-Make it so that users can type in a username and have their player represented by and referenced as that username in the code.
+Make it so that users can type in a username and have their player represented by and referenced to as that username in the code.
  4. **Create a character selector**
 A scene that runs at the start of the game where the player can scroll through a selection of available sprites and choose one to represent them. We will work on allowing players to customize their sprites in later Alpha versions.
 
