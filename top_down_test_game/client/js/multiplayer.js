@@ -45,7 +45,7 @@ function start_multiplayer() {
             location.reload(true);
         } else {
             console.log("connected", data);
-            player_id = data.id;
+            variableGroup.player_id = data.id;
             data_storage.connected = true;
 			console.log("data.id variable = ", data.id);
         }
@@ -75,8 +75,8 @@ function start_multiplayer() {
 ////when server says player has moved, update position on other players screen?////
 ////Honestly most of this is a mystery to me...////
     socket.on("update_other", (data) => {
-        if (go) {
-            if (data.id !== player_id) {
+        if (variableGroup.go) {
+            if (data.id !== variableGroup.player_id) {
                 if (!remote_players[data.id]) remote_players[data.id] = data;
                 if (remote_players[data.id].player) {
                     remote_players[data.id].movement = data.movement;
@@ -88,7 +88,7 @@ function start_multiplayer() {
                 } else {
 ////This part I know! Defines spawn point of non-local players along with their sprite////
 ////also defines hitbox of non-local player sprites and gives them physics to they can collide with things////
-                    const new_player = go.physics.add.sprite(4320, 4320, 'dude2');
+                    const new_player = variableGroup.go.physics.add.sprite(4320, 4320, 'dude2');
                     new_player.setSize(8, 8);
 					new_player.setOffset(11, 40);
                     new_player.setBounce(0.0);
@@ -96,7 +96,7 @@ function start_multiplayer() {
                     new_player.setMaxVelocity(160, 400);
                     new_player.setDragX(350);
                     new_player.update();
-                    go.physics.add.collider(new_player, blocked);
+                    variableGroup.go.physics.add.collider(new_player, blocked);
                     remote_players[data.id].player = new_player;
 						console.log('remote_players variable = ', remote_players);
                 }
@@ -107,7 +107,7 @@ function start_multiplayer() {
 
 ////outputs whether or not players are moving to change variables above////
 ////Honestly mostly useless right now I think?////
-    player.setPosition(player.body.position.x, player.body.position.y);
+    variableGroup.player.setPosition(variableGroup.player.body.position.x, variableGroup.player.body.position.y);
     const keybinds = {
         ArrowLeft: "Left",
         ArrowRight: "Right",
@@ -149,13 +149,13 @@ function start_multiplayer() {
 ////This is called whenever a local player presses an arrow key...////
 ////So it must be important for movement...but I don't know what actually uses this data////
 function emit_movement() {
-      if (send_data && player && player_id) {
+      if (send_data && variableGroup.player && variableGroup.player_id) {
         const player_data = {};
-        player_data.id = player_id;
-        player_data.velocity = player.body.velocity;
-        player_data.position = {x: player.x, y: player.y};
+        player_data.id = variableGroup.player_id;
+        player_data.velocity = variableGroup.player.body.velocity;
+        player_data.position = {x: variableGroup.player.x, y: variableGroup.player.y};
         player_data.movement = movement;
-        send_data('update', player_data);
+		send_data('update', player_data);
       } else {
         console.error('Attempting to send player movement data before multiplayer initialized')
       }

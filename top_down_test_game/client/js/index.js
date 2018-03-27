@@ -1,6 +1,7 @@
 /////creating universal variables/////
 const variableGroup = {
-    menu: null,
+    ////Variables used by the UI Scene////
+	menu: null,
     lookTab: null,
     itemsTab: null,
     spellsTab: null,
@@ -8,20 +9,24 @@ const variableGroup = {
     optionsTab: null,
     tabDisplay: null,
     numberButton: null,
+	////Variables used by the Game Scene////
+	player: null,
+	player_id: null,
+	cursors: null,
+	cam1: null,
+	cam2: null,
+	go: null,
+	controls: {},
+	
+	playerCount: 1,
+	playerCountText: null,
+	////Are these being used?////
+	//let blocked;
+	collider: null,
 };
-let blocked;
-let player;
-let playerCount = 1;
-let playerCountText;
-let controls = {};
-let cursors = null;
 
-let collider;
-let player_id;
-let cam1;
-let cam2;
+////having trouble putting these in the above variableGroup Constant////
 let send_data = null;
-let go;
 let debug = false;
 
 
@@ -37,7 +42,7 @@ var GameScene = new Phaser.Class({
 
     ////Load up all assets game uses before game starts ////
     preload: function () {
-        /////is supposed to display loading bar? I'm not sure if this is working right..../////
+        ////is supposed to display loading bar? I'm not sure if this is working right....////
         this.load.on('fileprogress', function (file, value) {
             console.log(value);
         });
@@ -103,21 +108,18 @@ var GameScene = new Phaser.Class({
         blocked = this.physics.add.staticGroup();
         ////gives physics to local player so that they will obey blocked objects/////
         ////Also defines local player spawn position and what sprite local player will use////
-        player = this.physics.add.sprite(4320, 4320, 'dude');
-        game.physics.add.collider(player, ground_layer);
+        variableGroup.player = this.physics.add.sprite(4320, 4320, 'dude');
+        game.physics.add.collider(variableGroup.player, ground_layer);
         /////tells game to look at arrow keys for game input/////
-        cursors = this.input.keyboard.createCursorKeys();
+		variableGroup.cursors = this.input.keyboard.createCursorKeys();
         /////makes it so local player can leave the edges of the map/////
         ////also defines "hitbox" of local player and commands camera to follow////
-        player.setSize(8, 8);
-        player.setOffset(11, 40);
-        player.setBounce(0.0);
-        player.setCollideWorldBounds(false);
-        //this.cameras.main.startFollow(player)
-        cam1 = this.cameras.main.setSize(920, 920).startFollow(player).setName('Camera 1');
+        variableGroup.player.setSize(8, 8);
+        variableGroup.player.setOffset(11, 40);
+        variableGroup.player.setBounce(0.0);
+        variableGroup.player.setCollideWorldBounds(false);
+        variableGroup.cam1 = this.cameras.main.setSize(920, 920).startFollow(variableGroup.player).setName('Camera 1');
 
-        //camera.follow(player, FOLLOW_STYLE, 0.5, 0.5, 64, 64);
-        //cameras.main.setOffset(-50, 0);
 
 
         /////creates the available animations to call on when moving sprites/////
@@ -160,12 +162,14 @@ var GameScene = new Phaser.Class({
             frameRate: 10,
             repeat: -1
         });
-        go = this;
-        collider = this.physics.add.collider(player, blocked);
-        controls.velocity = player.body.velocity;
+		////go - this; is some how important to representing non-local player movement////
+        ////line 78 of multiplayer.js updates player position only "if go"////
+		variableGroup.go = this;
+        variableGroup.collider = this.physics.add.collider(variableGroup.player, blocked);
+		variableGroup.controls.velocity = variableGroup.player.body.velocity;
 
         ////will soon display how many people are connected? Hopefully? Maybe?/////
-        playerCountText = this.add.text(16, 70, 'Players: Connecting...', {fontSize: '30px', fill: '#000'});
+        variableGroup.playerCountText = this.add.text(16, 70, 'Players: Connecting...', {fontSize: '30px', fill: '#000'});
 
         /////call start_multiplayer function in multiplayer.js file/////
         send_data = start_multiplayer();
@@ -180,25 +184,25 @@ var GameScene = new Phaser.Class({
         let animation = '';
         let velocityX = 0, velocityY = 0;
         //X Axis
-        if (cursors.left.isDown) {
+        if (variableGroup.cursors.left.isDown) {
             velocityX = -160;
             animation = 'left';
         }
-        else if (cursors.right.isDown) {
+        else if (variableGroup.cursors.right.isDown) {
             velocityX = 160;
             animation = 'right';
         }
         //Y Axis
-        if (cursors.up.isDown) {
+        if (variableGroup.cursors.up.isDown) {
             velocityY = -160;
             if (!animation) animation = 'right';
         }
-        else if (cursors.down.isDown) {
+        else if (variableGroup.cursors.down.isDown) {
             velocityY = 160;
             if (!animation) animation = 'left';
         }
-        player.setVelocityX(velocityX);
-        player.setVelocityY(velocityY);
+		variableGroup.player.setVelocityX(velocityX);
+		variableGroup.player.setVelocityY(velocityY);
         //Notify server if we have either velocity OR the previous frame had some movement (so that it receives stops)
         if (velocityX || velocityY || movement.left || movement.right || movement.up || movement.down) {
             //Update actual movement before sending
@@ -209,7 +213,7 @@ var GameScene = new Phaser.Class({
             //console.log('Sending ', movement);
             emit_movement();
         }
-        player.anims.play(animation || 'turn', true);
+		variableGroup.player.anims.play(animation || 'turn', true);
 
         ////haven't figured out what this is for yet...but seems important////
         ////Has something to do with updating player movements for other clients?///
