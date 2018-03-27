@@ -2,6 +2,7 @@
 
 
 **Installing and running the game**
+
 You will need `Node.js` to install the packages required for the server. To run the server, you'll need to have Node.js installed. We will also be using npm commands to download `socket.io` and `express`.
 
 **To Download Node.js go here:** 
