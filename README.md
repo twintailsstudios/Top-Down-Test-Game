@@ -3,15 +3,20 @@
 
 **Installing and running the game**
 You will need npm to install the `Node.js` packages required for the server. To run the server, you'll need to have Node.js installed. We will also be using npm commands to download `socket.io` and `express`.
+
 **To Download Node.js go here:** 
+
 [https://nodejs.org/en/](https://nodejs.org/en/)
 Once Node.js is installed open your command prompt and navigate to the directory you cloned this repository to.
+
 **Basic CMD Navigation Tips**
+
 You can use `cd/foldername\foldername\` to find the folder you saved this repository in. If you need to go up a directory you can use `cd..` to go backwards in your file structure.
 
 Make sure that you are inside of the `top_down_test_game` folder that is defined in this repository. With CMD looking at this directory run the command: `npm install` This will automatically install both `socket.io` and `express` packages using the .json files that are inside the `top_down_test_game` folder.
 
 **How to run the game server**
+
 Now that we have the packages installed, we need to run the `server.js` file located inside the same `top_down_test_game` folder. To do this, use the command: `node server.js`
 If all goes well, you should get a message `server starting with ID:  xxxxx`
 `Server is now running...Listening on 8081`
