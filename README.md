@@ -2,7 +2,7 @@
 
 
 **Installing and running the game**
-You will need npm to install the `Node.js` packages required for the server. To run the server, you'll need to have Node.js installed. We will also be using npm commands to download `socket.io` and `express`.
+You will need `Node.js` to install the packages required for the server. To run the server, you'll need to have Node.js installed. We will also be using npm commands to download `socket.io` and `express`.
 
 **To Download Node.js go here:** 
 
@@ -12,6 +12,8 @@ Once Node.js is installed open your command prompt and navigate to the directory
 **Basic CMD Navigation Tips**
 
 You can use `cd/foldername\foldername\` to find the folder you saved this repository in. If you need to go up a directory you can use `cd..` to go backwards in your file structure.
+
+**Installing `socket.io` and `express`**
 
 Make sure that you are inside of the `top_down_test_game` folder that is defined in this repository. With CMD looking at this directory run the command: `npm install` This will automatically install both `socket.io` and `express` packages using the .json files that are inside the `top_down_test_game` folder.
 
