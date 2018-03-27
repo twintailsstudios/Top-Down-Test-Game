@@ -16,7 +16,7 @@ You can use `cd/foldername\foldername\` to find the folder you saved this reposi
 
 **Installing `socket.io` and `express`**
 
-Make sure that you are inside of the `top_down_test_game` folder that is defined in this repository. With CMD looking at this directory run the command: `npm install` This will automatically install both `socket.io` and `express` packages using the .json files that are inside the `top_down_test_game` folder.
+Make sure that you are inside of the `top_down_test_game` folder that is defined in this repository. With CMD looking at this directory run the command: `npm install` This will automatically install both the `socket.io` and the `express` packages using the .json files that are inside the `top_down_test_game` folder.
 
 **How to run the game server**
 
@@ -35,7 +35,7 @@ This means it is up and running properly! Congratulations! You are now ready to 
 Make chat program display on top of the game in the bottom right quadrant of the screen.
  3. **Implement usernames.**
 Make it so that users can type in a username and have their player represented by and referenced to as that username in the code.
- 4. **Create a character selector**
+ 4. **Create a character selector.**
 A scene that runs at the start of the game where the player can scroll through a selection of available sprites and choose one to represent them. We will work on allowing players to customize their sprites in later Alpha versions.
 
 And that's it! With these 4 issues in place we will be able to make the game go live on our website as Alpha Version 0.00!
