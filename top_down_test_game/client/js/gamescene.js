@@ -3,41 +3,17 @@ var GameScene = new Phaser.Class({
     Extends: Phaser.Scene,
     initialize:
         function GameScene() {
-            Phaser.Scene.call(this, {key: 'GameScene', active: true});
+			////active is set to false here, so it waits for a command to launch////
+            Phaser.Scene.call(this, {key: 'GameScene', active: false});
             this.pic;
         },
-
-
-    ////Load up all assets game uses before game starts ////
-    preload: function () {
-        ////is supposed to display loading bar? I'm not sure if this is working right....////
-        this.load.on('fileprogress', function (file, value) {
-            console.log(value);
-        });
-
-        this.load.on('complete', function () {
-
-            // progress.destroy();
-
-        });
-
-        ////Preload Map Files////
-        ////This loads the tilesheet that the map uses to generate pictures////
-        this.load.image('spritesheet', 'client/assets/images/spritesheet.png');
-        ////This loads the map json file that says what coordinates have what pictures////
-        this.load.tilemapTiledJSON('level_2', 'client/assets/tilemaps/level2.json');
-        /////actually preloads resources to use in game/////
-        ////loads song file////
-        this.load.audio('bgm_calm', 'client/assets/music/Electrodoodle.mp3');
-        ////loads sprite files to be used for players////
-        this.load.spritesheet('dude', 'client/assets/spritesheets/dude.png', {frameWidth: 32, frameHeight: 48});
-        this.load.spritesheet('dude2', 'client/assets/spritesheets/dude2.png', {frameWidth: 32, frameHeight: 48});
-
-    },
 
     ////This function actually generates in the game what has been preloaded////
     create: function () {
         const game = this;
+		console.log('GameScene Started');
+		////scene.launch will launch new scene in parallel with current scene////
+		this.scene.launch('UiScene')
         /////plays music/////
         let background_music = this.sound.add('bgm_calm');
         background_music.volume = 0.05;
@@ -67,6 +43,7 @@ var GameScene = new Phaser.Class({
         grass_layer.depth = 2;
         grass_layer.setCollision(-1);
         ground_layer.setCollision([73, 74, 75, 292, 329, 450, 451, 452, 454, 455, 456, 482, 513, 514, 515, 516, 517, 518, 518, 583, 584, 589, 609, 610, 611, 645, 646, 647, 648, 651, 705, 706, 707, 712, 771, 772, 773, 774, 775, 776, 833, 834, 835, 836, 837, 838, 839, 840, 1300, 1301, 1302, 1363, 1364, 1366, 1367, 1427, 1431, 1491, 1492, 1494, 1495, 1556, 1557, 1558, 2369, 2370, 2371, 2433, 2434, 2435, 2497, 2498, 2499,]);
+		ground_layer.depth = 0;
         ground2_layer.setCollision(-1);
         background_layer.setCollision(-1);
         background2_layer.setCollision(-1);

@@ -41,6 +41,8 @@ const config = {
         }
     },
     scene:
-        [GameScene, UiScene]
+	////this lists all the scenes there are in the game to be referenced later////
+	////only launches scenes that have "active" set to "true"////
+        [BootScene, LoginScene, GameScene, UiScene]
 };
 const Game = new Phaser.Game(config);

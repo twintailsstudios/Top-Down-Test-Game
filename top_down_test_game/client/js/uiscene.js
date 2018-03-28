@@ -2,25 +2,13 @@
 var UiScene = new Phaser.Class({
     Extends: Phaser.Scene,
     initialize: function UiScene() {
-        Phaser.Scene.call(this, {key: 'UiScene', active: true});
+		////active is set to false here, so it waits for a command to launch////
+        Phaser.Scene.call(this, {key: 'UiScene', active: false});
         this.pic;
     },
-    preload: function () {
-        this.load.image('menuframe', 'client/assets/images/menuframe.png', {frameWidth: 1921, frameHeight: 1041});
-        this.load.image('numberbutton', 'client/assets/images/numberbutton.png');
-        this.load.image('looktab', 'client/assets/images/looktab.png');
-        this.load.image('lookdisplay', 'client/assets/images/lookdisplay.png');
-        this.load.image('itemstab', 'client/assets/images/itemstab.png');
-        this.load.image('itemsdisplay', 'client/assets/images/itemsdisplay.png');
-        this.load.image('spellstab', 'client/assets/images/spellstab.png');
-        this.load.image('spellsdisplay', 'client/assets/images/spellsdisplay.png');
-        this.load.image('maptab', 'client/assets/images/maptab.png');
-        this.load.image('mapdisplay', 'client/assets/images/mapdisplay.png');
-        this.load.image('optionstab', 'client/assets/images/optionstab.png');
-        this.load.image('optionsdisplay', 'client/assets/images/optionsdisplay.png');
-        this.load.image('clothesavatar', 'client/assets/images/clothesavatar.png');
-    },
+
     create: function () {
+		console.log('UiScene Started');
         let display = this; //Save this
         this.input.setGlobalTopOnly(true); // No idea what this does!
 
@@ -116,7 +104,6 @@ var UiScene = new Phaser.Class({
         //mapsTab
         variableGroup.mapTab = this.add.image(1450, 15, 'maptab').setScrollFactor(0);
         variableGroup.mapTab.depth = 6;
-        console.log('map tab was pressed');
         variableGroup.mapTab.setInteractive();
         variableGroup.mapTab.on('pointerdown', function () {
             console.log('map tab was pressed');
