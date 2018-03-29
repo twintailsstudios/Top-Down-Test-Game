@@ -1,5 +1,8 @@
 /////creating universal variables/////
 const variableGroup = {
+	////Variables used by LoginScene////
+	characterButton: null,
+	characterSelect: null,
     ////Variables used by the UI Scene////
 	menu: null,
     lookTab: null,

@@ -15,7 +15,7 @@ var BootScene = new Phaser.Class({
         let progressBar = this.add.graphics();
         let progressBarHolder = this.add.graphics();
         progressBarHolder.fillStyle(0x222222, 0.8);
-        progressBarHolder.fillRect(240, 270, 320, 50);
+        progressBarHolder.fillRect(735, 270, 320, 50);
         /* //This seems to tick through individual files, which isn't so useful.
         boot.load.on('fileprogress', function (file, value) {
             console.log("File progress event: ", file, ", ", value);
@@ -24,13 +24,14 @@ var BootScene = new Phaser.Class({
         boot.load.on('progress', function (ratio) {
             progressBar.clear();
             progressBar.fillStyle(0xffffff, 1);
-            progressBar.fillRect(250, 280, 300 * ratio, 30);
+            progressBar.fillRect(745, 280, 300 * ratio, 30);
         });
 
         boot.load.on('complete', function () {
             progressBar.destroy();
             progressBarHolder.destroy();
         });
+		
         //This loads the tilesheet that the map uses to generate pictures////
         boot.load.image('spritesheet', 'client/assets/images/spritesheet.png');
 
@@ -43,6 +44,10 @@ var BootScene = new Phaser.Class({
         //loads sprite files to be used for players////
         boot.load.spritesheet('dude', 'client/assets/spritesheets/dude.png', {frameWidth: 32, frameHeight: 48});
         boot.load.spritesheet('dude2', 'client/assets/spritesheets/dude2.png', {frameWidth: 32, frameHeight: 48});
+		
+		////preloads clickable login button ////
+		boot.load.image('loginbutton', 'client/assets/images/loginbutton.png');
+		boot.load.image('characterselect', 'client/assets/images/characterselect.png');
 
         //preloading menu assets////
         boot.load.image('menuframe', 'client/assets/images/menuframe.png', {frameWidth: 1921, frameHeight: 1041});
