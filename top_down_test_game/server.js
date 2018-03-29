@@ -1,12 +1,16 @@
 /** @namespace io.sockets */
 //////start of socket.io setup code///////////
-var express = require('express');
-var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io').listen(server);
+const express = require('express');
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io').listen(server);
 
-users = [];
-connections = [];
+const users = [];
+const connections = [];
+const players = {};
+
+const server_id = Math.random().toString(36).substr(2, 5);
+console.log('server starting with ID: ', server_id);
 ////set up virtual file paths so the server can find all your files////
 //app.use('/css',express.static(__dirname + '/css'));
 //app.use('/js',express.static(__dirname + '/js'));
@@ -28,16 +32,24 @@ app.get('/',function(req,res){
 server.listen(8081,function(){
 	console.log('Server is now running...Listening on '+server.address().port);
 	});
-////////////End of Server Setup/////////////
+////////////End of main server setup/////////////
 
-
-const players = {};
-
-////if client disconnects & reconnects compare server ID////
-const server_id = Math.random().toString(36).substr(2, 5);
-///player connects server will log connecting id and emit "connected" command
+////////////System channel/////////////
 io.on('connection', function socket_handler(socket) {
+    console.log("Connection to system from ", socket.id);
 
+    socket.on("login", (data) => {
+        console.log("Login request from ", socket.id);
+        //TODO: Fill out server login response
+        socket.emit('login');
+    });
+});
+
+////////////Game channel/////////////
+let ioGame = io.of('/game');
+///player connects server will log connecting id and emit "connected" command
+ioGame.on('connection', function socket_handler(socket) {
+    console.log("Connection to game from ", socket.id);
     player = {id: socket.id};
     players[socket.id] = player;
 
@@ -60,11 +72,4 @@ io.on('connection', function socket_handler(socket) {
     })
 })
 ;
-////assign server an ID number////
-console.log('server starting with ID: ', server_id);
-//console.log('variable players = ', players);
-
-
-
-
-////Game Server////
+console.log('server started with ID: ', server_id);

@@ -20,8 +20,12 @@ var LoginScene = new Phaser.Class({
         variableGroup.numberButton.depth = 6;
         variableGroup.numberButton.setInteractive();
         variableGroup.numberButton.on('pointerdown', function () {
-			////scene.start replaces old scenes with started scene////
-            start.scene.start('GameScene')
+            variableGroup.ioSystem.emit('login', {user:'Pending'}); //TODO: Fill out login request from client
 		});
-	},	
+        variableGroup.ioSystem.on('login', (response) => { //TODO: Handle login response from server
+            ////scene.start replaces old scenes with started scene////
+            start.scene.start('GameScene');
+        });
+
+    },
 });

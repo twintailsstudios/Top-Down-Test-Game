@@ -60,6 +60,7 @@ var BootScene = new Phaser.Class({
         boot.load.image('clothesavatar', 'client/assets/images/clothesavatar.png');
     },
     create: function() {
+        variableGroup.ioSystem = io(location.host); //Connect here, since we may eventually do MOTD type things before login
         boot.scene.start('LoginScene');
     }
 });

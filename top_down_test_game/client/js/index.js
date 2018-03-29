@@ -23,6 +23,10 @@ const variableGroup = {
 	////Are these being used?////
 	//let blocked;
 	collider: null,
+    //Endpoints for communication - These look like different connections but sockets.io will share one
+    ioSystem: null,
+    ioGame: null,
+    ioChat: null
 };
 
 ////having trouble putting these in the above variableGroup Constant////
