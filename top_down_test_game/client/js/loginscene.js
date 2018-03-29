@@ -3,8 +3,7 @@ var LoginScene = new Phaser.Class({
     Extends: Phaser.Scene,
     initialize:
         function LoginScene() {
-			////because active is set to true, scene launches instantly////
-            Phaser.Scene.call(this, {key: 'LoginScene', active: true});
+            Phaser.Scene.call(this, {key: 'LoginScene', active: false});
             this.pic;
         },
 
