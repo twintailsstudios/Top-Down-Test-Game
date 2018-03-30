@@ -53,7 +53,7 @@ var GameScene = new Phaser.Class({
         blocked = this.physics.add.staticGroup();
         ////gives physics to local player so that they will obey blocked objects/////
         ////Also defines local player spawn position and what sprite local player will use////
-        variableGroup.player = this.physics.add.sprite(4320, 4320, 'dude');
+        variableGroup.player = this.physics.add.sprite(4320, 4320, 'dudebody')
         game.physics.add.collider(variableGroup.player, ground_layer);
         /////tells game to look at arrow keys for game input/////
         variableGroup.cursors = this.input.keyboard.createCursorKeys();
@@ -89,8 +89,15 @@ var GameScene = new Phaser.Class({
         });
 
         this.anims.create({
-            key: 'left',
-            frames: this.anims.generateFrameNumbers('dude', {start: 0, end: 3}),
+            key: 'leftbody',
+            frames: this.anims.generateFrameNumbers('dudebody', {start: 0, end: 3}),
+            frameRate: 10,
+            repeat: -1
+        });
+		
+        this.anims.create({
+            key: 'lefthead',
+			frames: this.anims.generateFrameNumbers('dudeheadpurple', {start: 0, end: 3}),
             frameRate: 10,
             repeat: -1
         });
@@ -102,11 +109,35 @@ var GameScene = new Phaser.Class({
         });
 
         this.anims.create({
-            key: 'right',
-            frames: this.anims.generateFrameNumbers('dude', {start: 5, end: 8}),
+            key: 'rightbody',
+            frames: this.anims.generateFrameNumbers('dudebody', {start: 5, end: 8}),
             frameRate: 10,
             repeat: -1
         });
+		
+        this.anims.create({
+            key: 'righthead',
+            frames: this.anims.generateFrameNumbers('dudeheadpurple', {start: 5, end: 8}),
+            frameRate: 10,
+            repeat: -1
+        });
+		
+
+////trying to create an object to map animations to...////
+///make is so "when call "left" bring up head animation and body animation...something like that?////	
+		/*{
+			left: {
+				head: 'lefthead',
+				body: 'leftbody'
+			},
+			right: {
+				head: 'righthead',
+				body: 'rightbody'
+			},
+
+		};*/
+		
+		
         ////go - this; is some how important to representing non-local player movement////
         ////line 78 of multiplayer.js updates player position only "if go"////
         variableGroup.go = this;
@@ -131,20 +162,21 @@ var GameScene = new Phaser.Class({
         //X Axis
         if (variableGroup.cursors.left.isDown) {
             velocityX = -160;
-            animation = 'left';
+            animation = 'leftbody';
+			//animation = 'lefthead';
         }
         else if (variableGroup.cursors.right.isDown) {
             velocityX = 160;
-            animation = 'right';
+            animation = 'rightbody';
         }
         //Y Axis
         if (variableGroup.cursors.up.isDown) {
             velocityY = -160;
-            if (!animation) animation = 'right';
+            if (!animation) animation = 'rightbody';
         }
         else if (variableGroup.cursors.down.isDown) {
             velocityY = 160;
-            if (!animation) animation = 'left';
+            if (!animation) animation = 'leftbody';
         }
         variableGroup.player.setVelocityX(velocityX);
         variableGroup.player.setVelocityY(velocityY);

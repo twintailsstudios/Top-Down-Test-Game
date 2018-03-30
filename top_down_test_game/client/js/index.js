@@ -14,6 +14,9 @@ const variableGroup = {
     numberButton: null,
 	////Variables used by the Game Scene////
 	player: null,
+	playerHead: null,
+	body: null,
+	head: null,
 	player_id: null,
 	cursors: null,
 	cam1: null,

@@ -44,6 +44,10 @@ var BootScene = new Phaser.Class({
         //loads sprite files to be used for players////
         boot.load.spritesheet('dude', 'client/assets/spritesheets/dude.png', {frameWidth: 32, frameHeight: 48});
         boot.load.spritesheet('dude2', 'client/assets/spritesheets/dude2.png', {frameWidth: 32, frameHeight: 48});
+		boot.load.spritesheet('dudebody', 'client/assets/spritesheets/dudebody.png', {frameWidth: 32, frameHeight: 48});
+		boot.load.spritesheet('dudeheadpurple', 'client/assets/spritesheets/dudeheadpurple.png', {frameWidth: 32, frameHeight: 48});
+		boot.load.spritesheet('dudeheadgreen', 'client/assets/spritesheets/dudeheadgreen.png', {frameWidth: 32, frameHeight: 48});
+		boot.load.spritesheet('dudeheadblue', 'client/assets/spritesheets/dudeheadblue.png', {frameWidth: 32, frameHeight: 48});
 		
 		////preloads clickable login button ////
 		boot.load.image('loginbutton', 'client/assets/images/loginbutton.png');
