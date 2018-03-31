@@ -146,6 +146,8 @@ var GameScene = new Phaser.Class({
 ////this also doesn't work...///
 		/*variableGroup.moveLeft = variableGroup.leftHead + variableGroup.leftBody;
 		console.log('variableGroup.moveLeft1 = ', variableGroup.moveLeft) */
+////apparently you can not call animation keys from arrays either...////
+		variableGroup.moveLeft = ['lefthead', 'leftbody'];
 		
 		
         ////go - this; is some how important to representing non-local player movement////
