@@ -90,7 +90,8 @@ var GameScene = new Phaser.Class({
 
         this.anims.create({
             key: 'leftbody',
-            frames: this.anims.generateFrameNumbers('dudebody', {start: 0, end: 3}),
+			frames: this.anims.generateFrameNumbers('dudebody', {start: 0, end: 3}),
+            //frames: this.anims.generateFrameNumbers('dudebody', {start: 0, end: 3}),
             frameRate: 10,
             repeat: -1
         });
@@ -110,7 +111,8 @@ var GameScene = new Phaser.Class({
 
         this.anims.create({
             key: 'rightbody',
-            frames: this.anims.generateFrameNumbers('dudebody', {start: 5, end: 8}),
+			frames: this.anims.generateFrameNumbers('dudebody', {start: 5, end: 8}),
+            //frames: this.anims.generateFrameNumbers('dudebody', {start: 5, end: 8}),
             frameRate: 10,
             repeat: -1
         });
@@ -126,13 +128,13 @@ var GameScene = new Phaser.Class({
 ////trying to create an object to map animations to...////
 ///make is so "when call "left" bring up head animation and body animation...something like that?////	
 		/*{
-			left: {
-				head: 'lefthead',
-				body: 'leftbody'
+			moveLeft: {
+				leftHead: 'lefthead',
+				leftBody: 'leftbody'
 			},
-			right: {
-				head: 'righthead',
-				body: 'rightbody'
+			moveRight: {
+				rightHead: 'righthead',
+				Rightbody: 'rightbody'
 			},
 
 		};*/
