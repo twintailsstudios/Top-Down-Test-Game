@@ -128,16 +128,24 @@ var GameScene = new Phaser.Class({
 ////trying to create an object to map animations to...////
 ///make is so "when call "left" bring up head animation and body animation...something like that?////	
 		/*{
-			moveLeft: {
-				leftHead: 'lefthead',
-				leftBody: 'leftbody'
-			},
-			moveRight: {
-				rightHead: 'righthead',
-				Rightbody: 'rightbody'
-			},
+			variableGroup.moveLeft; {
+				variableGroup.leftHead = 'lefthead',
+				console.log('variableGroup.moveLeft1 = ', variableGroup.moveLeft)
+				variableGroup.leftBody = 'leftbody'
+				console.log('variableGroup.moveLeft2 = ', variableGroup.moveLeft)
+				
+			};
+			console.log('variableGroup.moveLeft3 = ', variableGroup.moveLeft)
+			variableGroup.moveRight; {
+				variableGroup.rightHead = 'righthead',
+				variableGroup.Rightbody = 'rightbody'
+			};
 
 		};*/
+		
+////this also doesn't work...///
+		/*variableGroup.moveLeft = variableGroup.leftHead + variableGroup.leftBody;
+		console.log('variableGroup.moveLeft1 = ', variableGroup.moveLeft) */
 		
 		
         ////go - this; is some how important to representing non-local player movement////
