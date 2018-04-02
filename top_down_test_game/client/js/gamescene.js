@@ -53,10 +53,12 @@ var GameScene = new Phaser.Class({
         blocked = this.physics.add.staticGroup();
         ////gives physics to local player so that they will obey blocked objects/////
         ////Also defines local player spawn position and what sprite local player will use////
-        variableGroup.player = this.physics.add.sprite(4320, 4320, 'dudebody')
+        variableGroup.player = this.physics.add.sprite(4320, 4320, 'emptyplayer')
 		variableGroup.playerHead = this.physics.add.sprite(4320, 4320, 'dudeheadpurple')
 		variableGroup.playerBody = this.physics.add.sprite(4320, 4320, 'dudebody')
         game.physics.add.collider(variableGroup.player, ground_layer);
+		game.physics.add.collider(variableGroup.playerHead, ground_layer);
+		game.physics.add.collider(variableGroup.playerBody, ground_layer);
         /////tells game to look at arrow keys for game input/////
         variableGroup.cursors = this.input.keyboard.createCursorKeys();
         /////makes it so local player can leave the edges of the map/////
@@ -65,6 +67,14 @@ var GameScene = new Phaser.Class({
         variableGroup.player.setOffset(11, 40);
         variableGroup.player.setBounce(0.0);
         variableGroup.player.setCollideWorldBounds(false);
+		variableGroup.playerHead.setSize(8, 8);
+        variableGroup.playerHead.setOffset(11, 40);
+        variableGroup.playerHead.setBounce(0.0);
+        variableGroup.playerHead.setCollideWorldBounds(false);
+		variableGroup.playerBody.setSize(8, 8);
+        variableGroup.playerBody.setOffset(11, 40);
+        variableGroup.playerBody.setBounce(0.0);
+        variableGroup.playerBody.setCollideWorldBounds(false);
         variableGroup.cam1 = this.cameras.main.setSize(920, 920).startFollow(variableGroup.player).setName('Camera 1');
 
 
@@ -218,35 +228,43 @@ var GameScene = new Phaser.Class({
         if (variableGroup.cursors.left.isDown) {
             velocityX = -160;
 			//animation = 'leftbody';            
-			variableGroup.playerBody.anims.play('leftbody')
-			variableGroup.playerHead.anims.play('lefthead')
+			variableGroup.playerBody.anims.play('leftbody', true);
+			variableGroup.playerHead.anims.play('lefthead', true);
         }
         else if (variableGroup.cursors.right.isDown) {
             velocityX = 160;
             //animation = 'rightbody';
-			variableGroup.playerBody.anims.play('rightbody')
-			variableGroup.playerHead.anims.play('righthead')
+			variableGroup.playerBody.anims.play('rightbody', true);
+			variableGroup.playerHead.anims.play('righthead', true);
         }
+
         //Y Axis
-        if (variableGroup.cursors.up.isDown) {
+		
+        else if (variableGroup.cursors.up.isDown) {
             velocityY = -160;
-            if (!animation) //animation = 'rightbody';
-						variableGroup.playerBody.anims.play('rightbody')
-						variableGroup.playerHead.anims.play('righthead')
+			//animation = 'rightbody';
+			variableGroup.playerBody.anims.play('rightbody', true);
+			variableGroup.playerHead.anims.play('righthead', true);
         }
         else if (variableGroup.cursors.down.isDown) {
             velocityY = 160;
-            if (!animation) //animation = 'leftbody';
-						variableGroup.playerBody.anims.play('leftbody')
-						variableGroup.playerHead.anims.play('lefthead')
+             //animation = 'leftbody';
+			variableGroup.playerBody.anims.play('leftbody', true);
+			variableGroup.playerHead.anims.play('lefthead', true);
         }
+			else {
+			variableGroup.playerBody.anims.play('standstill', true);
+			variableGroup.playerHead.anims.play('standstill', true);
+			}
 		
-		/*else {
-			variableGroup.playerBody.anims.play('standstill');
-			variableGroup.playerHead.anims.play('standstill');
-		}*/
+		
+
         variableGroup.player.setVelocityX(velocityX);
         variableGroup.player.setVelocityY(velocityY);
+		variableGroup.playerHead.setVelocityX(velocityX);
+        variableGroup.playerHead.setVelocityY(velocityY);
+		variableGroup.playerBody.setVelocityX(velocityX);
+        variableGroup.playerBody.setVelocityY(velocityY);		
         //Notify server if we have either velocity OR the previous frame had some movement (so that it receives stops)
         if (velocityX || velocityY || movement.left || movement.right || movement.up || movement.down) {
             //Update actual movement before sending
@@ -258,8 +276,8 @@ var GameScene = new Phaser.Class({
             emit_movement();
         }
         //variableGroup.player.anims.play(animation || 'turn', true);
-		//variableGroup.playerBody.anims.play('leftbody' || 'standstill', true);
-		//variableGroup.playerHead.anims.play('lefthead' || 'standstill', true);
+		//variableGroup.playerBody.anims.play('leftbody' || 'rightbody' || 'standstill', true);
+		//variableGroup.playerHead.anims.play('lefthead' || 'righthead' || 'standstill', true);
 		//variableGroup.playerBody.anims.play('rightbody' || 'standstill', true);
 		//variableGroup.playerHead.anims.play('righthead' || 'standstill', true);
 

@@ -42,6 +42,7 @@ var BootScene = new Phaser.Class({
         boot.load.audio('bgm_calm', 'client/assets/music/Electrodoodle.mp3');
 
         //loads sprite files to be used for players////
+		boot.load.spritesheet('emptyplayer', 'client/assets/spritesheets/emptyplayer.png', {frameWidth: 32, frameHeight: 48});
         boot.load.spritesheet('dude', 'client/assets/spritesheets/dude.png', {frameWidth: 32, frameHeight: 48});
         boot.load.spritesheet('dude2', 'client/assets/spritesheets/dude2.png', {frameWidth: 32, frameHeight: 48});
 		boot.load.spritesheet('dudebody', 'client/assets/spritesheets/dudebody.png', {frameWidth: 32, frameHeight: 48});

@@ -1,4 +1,6 @@
 let remote_players = {};
+let remote_playersBody = {};
+let remote_playersHead = {};
 let movement = {left: false, right: false, up: false, down: false}; //This is more intendedMovement, it may differ from actual velocities due to physics
 
 ////most of this does nothing at the moment, with the exception of the final "else" command////
@@ -83,10 +85,16 @@ function start_multiplayer() {
                     }
                     remote_players[data.id].player.setPosition(data.position.x, data.position.y);
                     remote_players[data.id].player.setVelocity(data.velocity.x, data.velocity.y);
+					remote_players[data.id].playerHead.setPosition(data.position.x, data.position.y);
+                    remote_players[data.id].playerHead.setVelocity(data.velocity.x, data.velocity.y);
+                    remote_players[data.id].playerBody.setPosition(data.position.x, data.position.y);
+                    remote_players[data.id].playerBody.setVelocity(data.velocity.x, data.velocity.y);
                 } else {
 ////This part I know! Defines spawn point of non-local players along with their sprite////
 ////also defines hitbox of non-local player sprites and gives them physics to they can collide with things////
-                    const new_player = variableGroup.go.physics.add.sprite(4320, 4320, 'dude2');
+                    const new_player = variableGroup.go.physics.add.sprite(4320, 4320, 'emptyplayer');
+					const new_playerHead = variableGroup.go.physics.add.sprite(4320, 4320, 'dudeheadpurple');
+					const new_playerBody = variableGroup.go.physics.add.sprite(4320, 4320, 'dudebody');
                     new_player.setSize(8, 8);
                     new_player.setOffset(11, 40);
                     new_player.setBounce(0.0);
@@ -96,9 +104,32 @@ function start_multiplayer() {
                     new_player.update();
                     variableGroup.go.physics.add.collider(new_player, blocked);
                     remote_players[data.id].player = new_player;
-                    console.log('remote_players variable = ', remote_players);
+                    
+					
+					new_playerHead.setSize(8, 8);
+                    new_playerHead.setOffset(11, 40);
+                    new_playerHead.setBounce(0.0);
+                    new_playerHead.setCollideWorldBounds(false);
+                    new_playerHead.setMaxVelocity(160, 400);
+                    new_playerHead.setDragX(350);
+                    new_playerHead.update();
+                    variableGroup.go.physics.add.collider(new_playerHead, blocked);
+                    remote_players[data.id].playerHead = new_playerHead;
+					
+					new_playerBody.setSize(8, 8);
+                    new_playerBody.setOffset(11, 40);
+                    new_playerBody.setBounce(0.0);
+                    new_playerBody.setCollideWorldBounds(false);
+                    new_playerBody.setMaxVelocity(160, 400);
+                    new_playerBody.setDragX(350);
+                    new_playerBody.update();
+                    variableGroup.go.physics.add.collider(new_playerBody, blocked);
+                    remote_players[data.id].playerBody = new_playerBody;
+					console.log('remote_players variable = ', remote_players);
                 }
                 if (!remote_players[data.id].player) delete remote_players[data.id];
+				if (!remote_playersHead[data.id].playerHead) delete remote_playersHead[data.id];
+				if (!remote_playersBody[data.id].playerBody) delete remote_playersBody[data.id];
             }
         }
     });
