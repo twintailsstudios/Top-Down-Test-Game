@@ -54,6 +54,8 @@ var GameScene = new Phaser.Class({
         ////gives physics to local player so that they will obey blocked objects/////
         ////Also defines local player spawn position and what sprite local player will use////
         variableGroup.player = this.physics.add.sprite(4320, 4320, 'dudebody')
+		variableGroup.playerHead = this.physics.add.sprite(4320, 4320, 'dudeheadpurple')
+		variableGroup.playerBody = this.physics.add.sprite(4320, 4320, 'dudebody')
         game.physics.add.collider(variableGroup.player, ground_layer);
         /////tells game to look at arrow keys for game input/////
         variableGroup.cursors = this.input.keyboard.createCursorKeys();
@@ -88,7 +90,8 @@ var GameScene = new Phaser.Class({
             repeat: -1
         });
 
-        this.anims.create({
+		/*
+		this.anims.create({
             key: 'leftbody',
 			frames: this.anims.generateFrameNumbers('dudebody', {start: 0, end: 3}),
             //frames: this.anims.generateFrameNumbers('dudebody', {start: 0, end: 3}),
@@ -96,23 +99,23 @@ var GameScene = new Phaser.Class({
             repeat: -1
         });
 		
+		
         this.anims.create({
             key: 'lefthead',
 			frames: this.anims.generateFrameNumbers('dudeheadpurple', {start: 0, end: 3}),
             frameRate: 10,
             repeat: -1
         });
-
-        this.anims.create({
+		*/
+        /*this.anims.create({
             key: 'turn',
             frames: [{key: 'dude', frame: 4}],
             frameRate: 20
-        });
+        });*/
 
-        this.anims.create({
+        /*this.anims.create({
             key: 'rightbody',
 			frames: this.anims.generateFrameNumbers('dudebody', {start: 5, end: 8}),
-            //frames: this.anims.generateFrameNumbers('dudebody', {start: 5, end: 8}),
             frameRate: 10,
             repeat: -1
         });
@@ -123,6 +126,46 @@ var GameScene = new Phaser.Class({
             frameRate: 10,
             repeat: -1
         });
+		*/
+////animation group testing////
+		variableGroup.leftBody = {
+			key: 'leftbody',
+			frames: this.anims.generateFrameNumbers('dudebody', {start: 0, end: 3}),
+			frameRate: 10,
+            repeat: -1
+		};
+		this.anims.create(variableGroup.leftBody);
+		
+		variableGroup.leftHead = {
+			key: 'lefthead',
+			frames: this.anims.generateFrameNumbers('dudeheadpurple', {start: 0, end: 3}),
+			frameRate: 10,
+            repeat: -1
+		};
+		this.anims.create(variableGroup.leftHead);
+		
+		variableGroup.rightBody = {
+			key: 'rightbody',
+			frames: this.anims.generateFrameNumbers('dudebody', {start: 5, end: 8}),
+			frameRate: 10,
+            repeat: -1
+		};
+		this.anims.create(variableGroup.rightBody);
+		
+		variableGroup.rightHead = {
+			key: 'righthead',
+			frames: this.anims.generateFrameNumbers('dudeheadpurple', {start: 5, end: 8}),
+			frameRate: 10,
+            repeat: -1
+		};
+		this.anims.create(variableGroup.rightHead);
+
+		variableGroup.standStill = {
+			key: 'standstill',
+            frames: [{key: 'dude', frame: 4}],
+            frameRate: 20
+		};
+		this.anims.create(variableGroup.standStill);
 		
 
 ////trying to create an object to map animations to...////
@@ -174,22 +217,34 @@ var GameScene = new Phaser.Class({
         //X Axis
         if (variableGroup.cursors.left.isDown) {
             velocityX = -160;
-            animation = 'leftbody';
-			//animation = 'lefthead';
+			//animation = 'leftbody';            
+			variableGroup.playerBody.anims.play('leftbody')
+			variableGroup.playerHead.anims.play('lefthead')
         }
         else if (variableGroup.cursors.right.isDown) {
             velocityX = 160;
-            animation = 'rightbody';
+            //animation = 'rightbody';
+			variableGroup.playerBody.anims.play('rightbody')
+			variableGroup.playerHead.anims.play('righthead')
         }
         //Y Axis
         if (variableGroup.cursors.up.isDown) {
             velocityY = -160;
-            if (!animation) animation = 'rightbody';
+            if (!animation) //animation = 'rightbody';
+						variableGroup.playerBody.anims.play('rightbody')
+						variableGroup.playerHead.anims.play('righthead')
         }
         else if (variableGroup.cursors.down.isDown) {
             velocityY = 160;
-            if (!animation) animation = 'leftbody';
+            if (!animation) //animation = 'leftbody';
+						variableGroup.playerBody.anims.play('leftbody')
+						variableGroup.playerHead.anims.play('lefthead')
         }
+		
+		/*else {
+			variableGroup.playerBody.anims.play('standstill');
+			variableGroup.playerHead.anims.play('standstill');
+		}*/
         variableGroup.player.setVelocityX(velocityX);
         variableGroup.player.setVelocityY(velocityY);
         //Notify server if we have either velocity OR the previous frame had some movement (so that it receives stops)
@@ -202,7 +257,11 @@ var GameScene = new Phaser.Class({
             //console.log('Sending ', movement);
             emit_movement();
         }
-        variableGroup.player.anims.play(animation || 'turn', true);
+        //variableGroup.player.anims.play(animation || 'turn', true);
+		//variableGroup.playerBody.anims.play('leftbody' || 'standstill', true);
+		//variableGroup.playerHead.anims.play('lefthead' || 'standstill', true);
+		//variableGroup.playerBody.anims.play('rightbody' || 'standstill', true);
+		//variableGroup.playerHead.anims.play('righthead' || 'standstill', true);
 
         ////haven't figured out what this is for yet...but seems important////
         ////Has something to do with updating player movements for other clients?///
