@@ -51,14 +51,35 @@ var GameScene = new Phaser.Class({
 		ground_layer.setCollisionFromCollisionGroup();
         ////makes all the objects you can't walk through/////
 		blocked = this.physics.add.staticGroup();
-        ////gives physics to local player so that they will obey blocked objects/////
-        ////Also defines local player spawn position and what sprite local player will use////
+		
+		
+        ////////////////////////experimental playerObject grouping code/////////////////////////////////
+		//The idea is to create a set of "player info" that will be sent from the client to the server
+		//The server will receive this packet of info and send back to other clients a message saying
+		//"player_ID is at this location and using spritesheet1 for head, spritesheet 4 for body" so on and so forth
+		//Clients will receive this message from server and know that player is at this location and has these accessories
+		//the location of accessories will be determined client side by setting the location of the accessories to match the player location
+		//client will apply spritesheets for those accessories based on the info pack received from the server.
+		/*
+		variableGroup.player = {
+			//define where player is
+			playerLocation,
+			//the "base sprite" that all other accessory sprites are layered on top of
+			playerBody,
+			//"accessory" sprites that will be grouped together with the base sprite
+			playerHead,
+			playerEars,
+			playerTail,
+			playerPatterns,			
+		}
+		*/
+		////////////////////////END experimental playerObject grouping code/////////////////////////////////
+		
+		
+        ////Defines local player spawn position and what sprite local player will use////
 		variableGroup.player = this.physics.add.sprite(4320, 4320, 'dudebody')
 		variableGroup.playerHead = this.physics.add.sprite(4320, 4320, 'dudeheadpurple')
 		variableGroup.playerBody = this.physics.add.sprite(4320, 4320, 'dudebody')
-		game.physics.add.collider(variableGroup.player, ground_layer);
-		game.physics.add.collider(variableGroup.playerHead, ground_layer);
-		game.physics.add.collider(variableGroup.playerBody, ground_layer);
         /////makes it so local player can leave the edges of the map/////
         ////also defines "hitbox" of local player and commands camera to follow////
 		variableGroup.player.setSize(8, 8);
@@ -73,7 +94,12 @@ var GameScene = new Phaser.Class({
 		variableGroup.playerBody.setOffset(11, 40);
 		variableGroup.playerBody.setBounce(0.0);
 		variableGroup.playerBody.setCollideWorldBounds(false);
+		////gives physics to local player so that they will obey blocked objects/////
+		game.physics.add.collider(variableGroup.player, ground_layer);
+		game.physics.add.collider(variableGroup.playerHead, ground_layer);
+		game.physics.add.collider(variableGroup.playerBody, ground_layer);
 		variableGroup.cam1 = this.cameras.main.setSize(920, 920).startFollow(variableGroup.player).setName('Camera 1');
+		
 
         /////tells game to look at arrow keys for game input/////
 		variableGroup.cursors = this.input.keyboard.createCursorKeys();
