@@ -36,40 +36,40 @@ server.listen(8081,function(){
 
 ////////////System channel/////////////
 io.on('connection', function socket_handler(socket) {
-    console.log("Connection to system from ", socket.id);
+	console.log("Connection to system from ", socket.id);
 
-    socket.on("login", (data) => {
-        console.log("Login request from ", socket.id);
-        //TODO: Fill out server login response
-        socket.emit('login');
-    });
+	socket.on("login", (data) => {
+		console.log("Login request from ", socket.id);
+		//TODO: Fill out server login response
+		socket.emit('login');
+	});
 });
 
 ////////////Game channel/////////////
 let ioGame = io.of('/game');
 ///player connects server will log connecting id and emit "connected" command
 ioGame.on('connection', function socket_handler(socket) {
-    console.log("Connection to game from ", socket.id);
-    player = {id: socket.id};
-    players[socket.id] = player;
+	console.log("Connection to game from ", socket.id);
+	player = {id: socket.id};
+	players[socket.id] = player;
 
-    console.log("connecting", player);
-    socket.emit("connected", player);
-    socket.emit("players", players);
-    socket.broadcast.emit("joined", player);
+	console.log("connecting", player);
+	socket.emit("connected", player);
+	socket.emit("players", players);
+	socket.broadcast.emit("joined", player);
 
 ////emits disconnect command when players leave////
-    socket.on("disconnect", (reason) => {
-        socket.broadcast.emit("left", player);
-        console.log("left", player);
-        if (players[socket.id]) {
-            delete players[socket.id];
-        }
-    });
-    socket.on("update", (data) => {
-        console.log(data);
-        socket.broadcast.emit("update_other",data);
-    })
+	socket.on("disconnect", (reason) => {
+		socket.broadcast.emit("left", player);
+		console.log("left", player);
+		if (players[socket.id]) {
+			delete players[socket.id];
+		}
+	});
+	socket.on("update", (data) => {
+		console.log(data);
+		socket.broadcast.emit("update_other",data);
+	})
 })
 ;
 console.log('server started with ID: ', server_id);
