@@ -24,13 +24,14 @@ var LoginScene = new Phaser.Class({
 
 			////Head Selection////
 			////Create clickable left arrow////
+			variableGroup.headSelect = 1;
 			variableGroup.headArrow = this.add.image(1048, 378, 'leftarrow').setScrollFactor(0);
 			variableGroup.headArrow.depth = 10;
 			variableGroup.headArrow.setInteractive();
 			variableGroup.headArrow.on('pointerdown', function () {
 				////subtract 1 value to headArrow variable////
-				if (variableGroup.headSelect <= 0) {
-					console.log('headSelect is <= 0');
+				if (variableGroup.headSelect <= 1) {
+					console.log('headSelect is <= 1');
 				}
 					else {
 						variableGroup.headSelect--;

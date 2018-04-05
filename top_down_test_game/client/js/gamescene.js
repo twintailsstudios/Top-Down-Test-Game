@@ -78,7 +78,7 @@ var GameScene = new Phaser.Class({
 		
         ////Defines local player spawn position and what sprite local player will use////
 		variableGroup.player = this.physics.add.sprite(4320, 4320, 'dudebody')
-		variableGroup.playerHead = this.physics.add.sprite(4320, 4320, 'dudeheadpurple')
+		variableGroup.playerHead = this.physics.add.sprite(4320, 4320, 'dudeheadblue')
 		variableGroup.playerBody = this.physics.add.sprite(4320, 4320, 'dudebody')
         /////makes it so local player can leave the edges of the map/////
         ////also defines "hitbox" of local player and commands camera to follow////
@@ -171,14 +171,36 @@ var GameScene = new Phaser.Class({
 			frameRate: 10,
 			repeat: -1
 		};
-		this.anims.create(variableGroup.leftBody);
 		
-		variableGroup.leftHead = {
-			key: 'lefthead',
-			frames: this.anims.generateFrameNumbers('dudeheadpurple', {start: 0, end: 3}),
-			frameRate: 10,
-			repeat: -1
-		};
+		////if purple head was selected, play this////
+		this.anims.create(variableGroup.leftBody);
+		if (variableGroup.headSelect == 1) {
+			variableGroup.leftHead = {
+				key: 'lefthead',
+				frames: this.anims.generateFrameNumbers('dudeheadpurple', {start: 0, end: 3}),
+				frameRate: 10,
+				repeat: -1
+			};
+		}
+		////if blue head was selected, play this////
+		if (variableGroup.headSelect == 2) {
+			variableGroup.leftHead = {
+				key: 'lefthead',
+				frames: this.anims.generateFrameNumbers('dudeheadblue', {start: 0, end: 3}),
+				frameRate: 10,
+				repeat: -1
+			};
+		}
+		////if green head was selected, play this////
+		if (variableGroup.headSelect == 3) {
+			variableGroup.leftHead = {
+				key: 'lefthead',
+				frames: this.anims.generateFrameNumbers('dudeheadgreen', {start: 0, end: 3}),
+				frameRate: 10,
+				repeat: -1
+			};
+		}
+		////assign whatever animation is chosen above to variableGroup.leftHead////
 		this.anims.create(variableGroup.leftHead);
 		
 		////Right Facing Animations////
@@ -190,20 +212,62 @@ var GameScene = new Phaser.Class({
 		};
 		this.anims.create(variableGroup.rightBody);
 		
-		variableGroup.rightHead = {
-			key: 'righthead',
-			frames: this.anims.generateFrameNumbers('dudeheadpurple', {start: 5, end: 8}),
-			frameRate: 10,
-			repeat: -1
-		};
+		////if purple head was selected, play this////
+		if (variableGroup.headSelect == 1) {
+			variableGroup.rightHead = {
+				key: 'righthead',
+				frames: this.anims.generateFrameNumbers('dudeheadpurple', {start: 5, end: 8}),
+				frameRate: 10,
+				repeat: -1
+			};
+		}
+		////if blue head was selected, play this////
+		if (variableGroup.headSelect == 2) {
+			variableGroup.rightHead = {
+				key: 'righthead',
+				frames: this.anims.generateFrameNumbers('dudeheadblue', {start: 5, end: 8}),
+				frameRate: 10,
+				repeat: -1
+			};
+		}
+		////if green head was selected, play this////
+		if (variableGroup.headSelect == 3) {
+			variableGroup.rightHead = {
+				key: 'righthead',
+				frames: this.anims.generateFrameNumbers('dudeheadgreen', {start: 5, end: 8}),
+				frameRate: 10,
+				repeat: -1
+			};
+		}
+		////assign whatever animation is chosen above to variableGroup.rightHead////
 		this.anims.create(variableGroup.rightHead);
 		
 		////Animation played when player is not moving////
-		variableGroup.standStill = {
-			key: 'standstill',
-			frames: [{key: 'dude', frame: 4}],
-			frameRate: 20
-		};
+		////if purple head was selected, play this////
+		if (variableGroup.headSelect == 1) {
+			variableGroup.standStill = {
+				key: 'standstill',
+				frames: [{key: 'dudeheadpurple', frame: 4}],
+				frameRate: 20
+			};
+		}
+		////if blue head was selected, play this////
+		if (variableGroup.headSelect == 2) {
+			variableGroup.standStill = {
+				key: 'standstill',
+				frames: [{key: 'dudeheadblue', frame: 4}],
+				frameRate: 20
+			};
+		}
+		////if green head was selected, play this////
+		if (variableGroup.headSelect == 3) {
+			variableGroup.standStill = {
+				key: 'standstill',
+				frames: [{key: 'dudeheadgreen', frame: 4}],
+				frameRate: 20
+			};
+		}
+		////assign whatever animation is chosen above to variableGroup.standStill////
 		this.anims.create(variableGroup.standStill);
 		
 
