@@ -61,7 +61,7 @@ var GameScene = new Phaser.Class({
 		//the location of accessories will be determined client side by setting the location of the accessories to match the player location
 		//client will apply spritesheets for those accessories based on the info pack received from the server.
 		/*
-		variableGroup.player = {
+		variableGroup.playerObject = {
 			//define where player is
 			playerLocation,
 			//the "base sprite" that all other accessory sprites are layered on top of

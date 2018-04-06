@@ -26,10 +26,10 @@ function update_movement(player, movement) {
 		}
 		else if (movement.down) {
 			//player.setVelocityY(160);
-			if (!animation) animation = 'otherright';
+			//if (!animation) animation = 'otherright';
 		}
-		else player.setVelocityY(0);
-		player.anims.play(animation || 'turn', true);
+		//else player.setVelocityY(0);
+		player.anims.play(animation || 'standstill', true);
 	}
 }
 
@@ -77,26 +77,38 @@ function start_multiplayer() {
 	////Honestly most of this is a mystery to me...////
 	variableGroup.ioGame.on("update_other", (data) => {
 		if (variableGroup.go) {
+			//console.log('variableGroup.go was called');
 			if (data.id !== variableGroup.player_id) {
+				//console.log('data.id !== variableGroup.player_id');
 				if (!remote_players[data.id]) remote_players[data.id] = data;
+					//console.log('!remote_players[data.id]) remote_players[data.id] = data');
 				if (remote_players[data.id].player) {
+					//console.log('remote_players[data.id].player');
 					remote_players[data.id].movement = data.movement;
 					if (data.movement) {
+						//console.log('data.movement');
 						update_movement(remote_players[data.id].player, data.movement);
 					}
 					remote_players[data.id].player.setPosition(data.position.x, data.position.y);
-					remote_players[data.id].player.setVelocity(data.velocity.x, data.velocity.y);
-					remote_players[data.id].playerHead.setPosition(data.position.x, data.position.y);
+					//console.log('data = ', data);
+					
+					/////////////////////////////////////////////////////////////////////////////////////////
+					////THIS! This code right here! This causes the delay for remote players! This is what causes
+					////remote players to continue moving even after they've let go of the arrow key!
+					//remote_players[data.id].player.setVelocity(data.velocity.x, data.velocity.y);
+					////////////////////////////////////////////////////////////////////////////////////////
+					
+					/*remote_players[data.id].playerHead.setPosition(data.position.x, data.position.y);
 					remote_players[data.id].playerHead.setVelocity(data.velocity.x, data.velocity.y);
 					remote_players[data.id].playerBody.setPosition(data.position.x, data.position.y);
-					remote_players[data.id].playerBody.setVelocity(data.velocity.x, data.velocity.y);
+					remote_players[data.id].playerBody.setVelocity(data.velocity.x, data.velocity.y);*/
 				}
 				else {
 					////This part I know! Defines spawn point of non-local players along with their sprite////
 					////also defines hitbox of non-local player sprites and gives them physics to they can collide with things////
 					const new_player = variableGroup.go.physics.add.sprite(4320, 4320, 'emptyplayer');
-					const new_playerHead = variableGroup.go.physics.add.sprite(4320, 4320, 'dudeheadpurple');
-					const new_playerBody = variableGroup.go.physics.add.sprite(4320, 4320, 'dudebody');
+					/*const new_playerHead = variableGroup.go.physics.add.sprite(4320, 4320, 'dudeheadpurple');
+					const new_playerBody = variableGroup.go.physics.add.sprite(4320, 4320, 'dudebody');*/
 					new_player.setSize(8, 8);
 					new_player.setOffset(11, 40);
 					new_player.setBounce(0.0);
@@ -106,8 +118,9 @@ function start_multiplayer() {
 					new_player.update();
 					variableGroup.go.physics.add.collider(new_player, blocked);
 					remote_players[data.id].player = new_player;
+					console.log('player = ', player);
                     
-					
+					/*
 					new_playerHead.setSize(8, 8);
 					new_playerHead.setOffset(11, 40);
 					new_playerHead.setBounce(0.0);
@@ -128,10 +141,9 @@ function start_multiplayer() {
 					variableGroup.go.physics.add.collider(new_playerBody, blocked);
 					remote_players[data.id].playerBody = new_playerBody;
 					console.log('remote_players variable = ', remote_players);
+					*/
 				}
 				if (!remote_players[data.id].player) delete remote_players[data.id];
-				if (!remote_playersHead[data.id].playerHead) delete remote_playersHead[data.id];
-				if (!remote_playersBody[data.id].playerBody) delete remote_playersBody[data.id];
 			}
 		}
 	});
@@ -178,7 +190,7 @@ function start_multiplayer() {
 }
 
 
-////sends player position and velocity to server? MAybe also?////
+////sends player position and velocity to server? Maybe also?////
 ////This is called whenever a local player presses an arrow key...////
 ////So it must be important for movement...but I don't know what actually uses this data////
 function emit_movement() {
