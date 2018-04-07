@@ -1,4 +1,5 @@
 ////create GameScene////
+//var oldVelocityX = 0, oldVelocityY = 0;
 var GameScene = new Phaser.Class({
 	Extends: Phaser.Scene,
 	initialize:
@@ -317,15 +318,18 @@ var GameScene = new Phaser.Class({
         ////emit_movement calls this function in the multiplayer.js file////
 		let animation = '';
 		let velocityX = 0, velocityY = 0;
+
         //X Axis
 		if (variableGroup.cursors.left.isDown) {
 			velocityX = -160;
+			//oldVelocityX = velocityX
 			//animation = 'leftbody';            
 			variableGroup.playerBody.anims.play('leftbody', true);
 			variableGroup.playerHead.anims.play('lefthead', true);
 		}
 		else if (variableGroup.cursors.right.isDown) {
 			velocityX = 160;
+			//oldVelocityX = velocityX
             //animation = 'rightbody';
 			variableGroup.playerBody.anims.play('rightbody', true);
 			variableGroup.playerHead.anims.play('righthead', true);
@@ -335,17 +339,20 @@ var GameScene = new Phaser.Class({
 		
 		else if (variableGroup.cursors.up.isDown) {
 			velocityY = -160;
+			//oldVelocityY = velocityY
 			//animation = 'rightbody';
 			variableGroup.playerBody.anims.play('rightbody', true);
 			variableGroup.playerHead.anims.play('righthead', true);
 		}
 		else if (variableGroup.cursors.down.isDown) {
 			velocityY = 160;
+			//oldVelocityY = velocityY
              //animation = 'leftbody';
 			variableGroup.playerBody.anims.play('leftbody', true);
 			variableGroup.playerHead.anims.play('lefthead', true);
 		}
 			else {
+				
 				velocityX = 0;
 				velocityY = 0;
 				variableGroup.playerBody.anims.play('standstill', true);
@@ -360,7 +367,17 @@ var GameScene = new Phaser.Class({
 		variableGroup.playerHead.setVelocityX(velocityX);
 		variableGroup.playerHead.setVelocityY(velocityY);
 		variableGroup.playerBody.setVelocityX(velocityX);
-		variableGroup.playerBody.setVelocityY(velocityY);		
+		variableGroup.playerBody.setVelocityY(velocityY);	
+		/*if (oldVelocityX != velocityX) {
+			emit_movement();
+			oldVelocityX = velocityX
+		}
+		if (oldVelocityY != velocityY) {
+			emit_movement();
+			oldVelocityY = velocityY
+		}
+		console.log('oldVelocityX = ', oldVelocityX);
+		console.log('velocityX = ', velocityX);*/
         //Notify server if we have either velocity OR the previous frame had some movement (so that it receives stops)
 		if (velocityX || velocityY || movement.left || movement.right || movement.up || movement.down) {
             //Update actual movement before sending
@@ -373,6 +390,13 @@ var GameScene = new Phaser.Class({
 			console.log('VY = ', velocityY);
 			emit_movement();
 		}
+		/*else {
+			console.error('emit_movement failed to be called');
+		}
+			console.log('Sending ', movement);
+			console.log('VX = ', velocityX);
+			console.log('VY = ', velocityY);
+		*/
         //variableGroup.player.anims.play(animation || 'turn', true);
 		//variableGroup.playerBody.anims.play('leftbody' || 'rightbody' || 'standstill', true);
 		//variableGroup.playerHead.anims.play('lefthead' || 'righthead' || 'standstill', true);

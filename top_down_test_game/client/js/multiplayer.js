@@ -95,7 +95,7 @@ function start_multiplayer() {
 					/////////////////////////////////////////////////////////////////////////////////////////
 					////THIS! This code right here! This causes the delay for remote players! This is what causes
 					////remote players to continue moving even after they've let go of the arrow key!
-					remote_players[data.id].player.setVelocity(data.velocity.x, data.velocity.y);
+					//remote_players[data.id].player.setVelocity(data.velocity.x, data.velocity.y);
 					////////////////////////////////////////////////////////////////////////////////////////
 					
 					/*remote_players[data.id].playerHead.setPosition(data.position.x, data.position.y);
@@ -185,8 +185,8 @@ function start_multiplayer() {
 	function send_data(message, data) {
 		return variableGroup.ioGame.emit(message, data)
 	}
-
 	return send_data;
+			console.log('send_data =', send_data);
 }
 
 
@@ -198,6 +198,7 @@ function emit_movement() {
 	if (send_data && variableGroup.player && variableGroup.player_id) {
 		const player_data = {};
 		player_data.id = variableGroup.player_id;
+		console.log('emit_movement player_data = ', variableGroup.player_id);
 		player_data.velocity = variableGroup.player.body.velocity;
 		player_data.position = {x: variableGroup.player.x, y: variableGroup.player.y};
 		player_data.movement = movement;
