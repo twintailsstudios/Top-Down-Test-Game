@@ -95,7 +95,7 @@ function start_multiplayer() {
 					/////////////////////////////////////////////////////////////////////////////////////////
 					////THIS! This code right here! This causes the delay for remote players! This is what causes
 					////remote players to continue moving even after they've let go of the arrow key!
-					//remote_players[data.id].player.setVelocity(data.velocity.x, data.velocity.y);
+					remote_players[data.id].player.setVelocity(data.velocity.x, data.velocity.y);
 					////////////////////////////////////////////////////////////////////////////////////////
 					
 					/*remote_players[data.id].playerHead.setPosition(data.position.x, data.position.y);
@@ -118,7 +118,7 @@ function start_multiplayer() {
 					new_player.update();
 					variableGroup.go.physics.add.collider(new_player, blocked);
 					remote_players[data.id].player = new_player;
-					console.log('player = ', player);
+					console.log('player = ', variableGroup.player);
                     
 					/*
 					new_playerHead.setSize(8, 8);
@@ -194,6 +194,7 @@ function start_multiplayer() {
 ////This is called whenever a local player presses an arrow key...////
 ////So it must be important for movement...but I don't know what actually uses this data////
 function emit_movement() {
+	console.log('emit_movement called successfully');
 	if (send_data && variableGroup.player && variableGroup.player_id) {
 		const player_data = {};
 		player_data.id = variableGroup.player_id;

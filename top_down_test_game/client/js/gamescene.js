@@ -346,8 +346,11 @@ var GameScene = new Phaser.Class({
 			variableGroup.playerHead.anims.play('lefthead', true);
 		}
 			else {
-			variableGroup.playerBody.anims.play('standstill', true);
-			variableGroup.playerHead.anims.play('standstill', true);
+				velocityX = 0;
+				velocityY = 0;
+				variableGroup.playerBody.anims.play('standstill', true);
+				variableGroup.playerHead.anims.play('standstill', true);
+				//emit_movement();
 			}
 		
 		
@@ -365,7 +368,9 @@ var GameScene = new Phaser.Class({
 			movement.right = (velocityX > 0);
 			movement.up = (velocityY < 0);
 			movement.down = (velocityY > 0);
-            //console.log('Sending ', movement);
+            console.log('Sending ', movement);
+			console.log('VX = ', velocityX);
+			console.log('VY = ', velocityY);
 			emit_movement();
 		}
         //variableGroup.player.anims.play(animation || 'turn', true);

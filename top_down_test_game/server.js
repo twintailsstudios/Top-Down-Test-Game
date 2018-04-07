@@ -67,6 +67,7 @@ ioGame.on('connection', function socket_handler(socket) {
 		}
 	});
 	socket.on("update", (data) => {
+		console.log('update called successfully');
 		console.log(data);
 		socket.broadcast.emit("update_other",data);
 	})
