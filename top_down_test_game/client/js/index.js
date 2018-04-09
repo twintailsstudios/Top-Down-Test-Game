@@ -16,6 +16,7 @@ const variableGroup = {
 	tabDisplay: null,
 	numberButton: null,
 	////Variables used by the Game Scene////
+	playerObject: null,
 	player: null,
 	playerHead: null,
 	playerBody: null,

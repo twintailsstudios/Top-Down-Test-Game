@@ -52,7 +52,7 @@ var LoginScene = new Phaser.Class({
 						console.log('headSelect = ', variableGroup.headSelect);
 					}
 			});					
-			
+			////Create "finish" button to start the game with selected character////
 			variableGroup.characterSelect.depth = 7;
 			variableGroup.characterButton = this.add.image(866, 675, 'numberbutton').setScrollFactor(0);
 			variableGroup.characterButton.depth = 8;

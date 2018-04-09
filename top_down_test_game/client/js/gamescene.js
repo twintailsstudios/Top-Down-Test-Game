@@ -61,44 +61,48 @@ var GameScene = new Phaser.Class({
 		//Clients will receive this message from server and know that player is at this location and has these accessories
 		//the location of accessories will be determined client side by setting the location of the accessories to match the player location
 		//client will apply spritesheets for those accessories based on the info pack received from the server.
-		/*
+		
 		variableGroup.playerObject = {
+			playerIDNumber: variableGroup.ioSystem.id,
+			test: null,
+			test2: null,
 			//define where player is
-			playerLocation,
+			//playerLocation,
 			//the "base sprite" that all other accessory sprites are layered on top of
-			playerBody,
+			playerBody: null,
 			//"accessory" sprites that will be grouped together with the base sprite
-			playerHead,
-			playerEars,
-			playerTail,
-			playerPatterns,			
-		}
-		*/
+			playerHead: null
+			//playerEars,
+			//playerTail,
+			//playerPatterns,			
+		};
+		variableGroup.playerObject.playerHead = this.physics.add.sprite(4320, 4320, 'dudeheadpurple')
+		variableGroup.playerObject.playerBody = this.physics.add.sprite(4320, 4320, 'dudebody')
+		console.log('variableGroup.playerObject = ', variableGroup.playerObject);
 		////////////////////////END experimental playerObject grouping code/////////////////////////////////
 		
 		
         ////Defines local player spawn position and what sprite local player will use////
 		variableGroup.player = this.physics.add.sprite(4320, 4320, 'dudebody')
-		variableGroup.playerHead = this.physics.add.sprite(4320, 4320, 'dudeheadblue')
-		variableGroup.playerBody = this.physics.add.sprite(4320, 4320, 'dudebody')
+
         /////makes it so local player can leave the edges of the map/////
         ////also defines "hitbox" of local player and commands camera to follow////
 		variableGroup.player.setSize(8, 8);
 		variableGroup.player.setOffset(11, 40);
 		variableGroup.player.setBounce(0.0);
 		variableGroup.player.setCollideWorldBounds(false);
-		variableGroup.playerHead.setSize(8, 8);
-		variableGroup.playerHead.setOffset(11, 40);
-		variableGroup.playerHead.setBounce(0.0);
-		variableGroup.playerHead.setCollideWorldBounds(false);
-		variableGroup.playerBody.setSize(8, 8);
-		variableGroup.playerBody.setOffset(11, 40);
-		variableGroup.playerBody.setBounce(0.0);
-		variableGroup.playerBody.setCollideWorldBounds(false);
+		variableGroup.playerObject.playerHead.setSize(8, 8);
+		variableGroup.playerObject.playerHead.setOffset(11, 40);
+		variableGroup.playerObject.playerHead.setBounce(0.0);
+		variableGroup.playerObject.playerHead.setCollideWorldBounds(false);
+		variableGroup.playerObject.playerBody.setSize(8, 8);
+		variableGroup.playerObject.playerBody.setOffset(11, 40);
+		variableGroup.playerObject.playerBody.setBounce(0.0);
+		variableGroup.playerObject.playerBody.setCollideWorldBounds(false);
 		////gives physics to local player so that they will obey blocked objects/////
 		game.physics.add.collider(variableGroup.player, ground_layer);
-		game.physics.add.collider(variableGroup.playerHead, ground_layer);
-		game.physics.add.collider(variableGroup.playerBody, ground_layer);
+		game.physics.add.collider(variableGroup.playerObject.playerHead, ground_layer);
+		game.physics.add.collider(variableGroup.playerObject.playerBody, ground_layer);
 		variableGroup.cam1 = this.cameras.main.setSize(920, 920).startFollow(variableGroup.player).setName('Camera 1');
 		
 
@@ -324,15 +328,15 @@ var GameScene = new Phaser.Class({
 			velocityX = -160;
 			//oldVelocityX = velocityX
 			//animation = 'leftbody';            
-			variableGroup.playerBody.anims.play('leftbody', true);
-			variableGroup.playerHead.anims.play('lefthead', true);
+			variableGroup.playerObject.playerBody.anims.play('leftbody', true);
+			variableGroup.playerObject.playerHead.anims.play('lefthead', true);
 		}
 		else if (variableGroup.cursors.right.isDown) {
 			velocityX = 160;
 			//oldVelocityX = velocityX
             //animation = 'rightbody';
-			variableGroup.playerBody.anims.play('rightbody', true);
-			variableGroup.playerHead.anims.play('righthead', true);
+			variableGroup.playerObject.playerBody.anims.play('rightbody', true);
+			variableGroup.playerObject.playerHead.anims.play('righthead', true);
 		}
 
         //Y Axis
@@ -341,33 +345,32 @@ var GameScene = new Phaser.Class({
 			velocityY = -160;
 			//oldVelocityY = velocityY
 			//animation = 'rightbody';
-			variableGroup.playerBody.anims.play('rightbody', true);
-			variableGroup.playerHead.anims.play('righthead', true);
+			variableGroup.playerObject.playerBody.anims.play('rightbody', true);
+			variableGroup.playerObject.playerHead.anims.play('righthead', true);
 		}
 		else if (variableGroup.cursors.down.isDown) {
 			velocityY = 160;
 			//oldVelocityY = velocityY
              //animation = 'leftbody';
-			variableGroup.playerBody.anims.play('leftbody', true);
-			variableGroup.playerHead.anims.play('lefthead', true);
+			variableGroup.playerObject.playerBody.anims.play('leftbody', true);
+			variableGroup.playerObject.playerHead.anims.play('lefthead', true);
 		}
 			else {
 				
 				velocityX = 0;
 				velocityY = 0;
-				variableGroup.playerBody.anims.play('standstill', true);
-				variableGroup.playerHead.anims.play('standstill', true);
+				variableGroup.playerObject.playerBody.anims.play('standstill', true);
+				variableGroup.playerObject.playerHead.anims.play('standstill', true);
 				//emit_movement();
 			}
 		
 		
-
 		variableGroup.player.setVelocityX(velocityX);
 		variableGroup.player.setVelocityY(velocityY);
-		variableGroup.playerHead.setVelocityX(velocityX);
-		variableGroup.playerHead.setVelocityY(velocityY);
-		variableGroup.playerBody.setVelocityX(velocityX);
-		variableGroup.playerBody.setVelocityY(velocityY);	
+		variableGroup.playerObject.playerHead.setVelocityX(velocityX);
+		variableGroup.playerObject.playerHead.setVelocityY(velocityY);
+		variableGroup.playerObject.playerBody.setVelocityX(velocityX);
+		variableGroup.playerObject.playerBody.setVelocityY(velocityY);	
 		/*if (oldVelocityX != velocityX) {
 			emit_movement();
 			oldVelocityX = velocityX
@@ -398,10 +401,10 @@ var GameScene = new Phaser.Class({
 			console.log('VY = ', velocityY);
 		*/
         //variableGroup.player.anims.play(animation || 'turn', true);
-		//variableGroup.playerBody.anims.play('leftbody' || 'rightbody' || 'standstill', true);
-		//variableGroup.playerHead.anims.play('lefthead' || 'righthead' || 'standstill', true);
-		//variableGroup.playerBody.anims.play('rightbody' || 'standstill', true);
-		//variableGroup.playerHead.anims.play('righthead' || 'standstill', true);
+		//variableGroup.playerObject.playerBody.anims.play('leftbody' || 'rightbody' || 'standstill', true);
+		//variableGroup.playerObject.playerHead.anims.play('lefthead' || 'righthead' || 'standstill', true);
+		//variableGroup.playerObject.playerBody.anims.play('rightbody' || 'standstill', true);
+		//variableGroup.playerObject.playerHead.anims.play('righthead' || 'standstill', true);
 
         ////haven't figured out what this is for yet...but seems important////
         ////Has something to do with updating player movements for other clients?///
