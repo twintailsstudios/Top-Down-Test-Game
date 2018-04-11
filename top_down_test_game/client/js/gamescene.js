@@ -58,14 +58,12 @@ var GameScene = new Phaser.Class({
 		//The idea is to create a set of "player info" that will be sent from the client to the server
 		//The server will receive this packet of info and send back to other clients a message saying
 		//"player_ID is at this location and using spritesheet1 for head, spritesheet 4 for body" so on and so forth
-		//Clients will receive this message from server and know that player is at this location and has these accessories
+		//Clients will receive this message from server and know that playerID is at this location and has these accessories
 		//the location of accessories will be determined client side by setting the location of the accessories to match the player location
 		//client will apply spritesheets for those accessories based on the info pack received from the server.
 		
 		variableGroup.playerObject = {
 			playerIDNumber: variableGroup.ioSystem.id,
-			test: null,
-			test2: null,
 			//define where player is
 			//playerLocation,
 			//the "base sprite" that all other accessory sprites are layered on top of
@@ -76,8 +74,8 @@ var GameScene = new Phaser.Class({
 			//playerTail,
 			//playerPatterns,			
 		};
-		variableGroup.playerObject.playerHead = this.physics.add.sprite(4320, 4320, 'dudeheadpurple')
-		variableGroup.playerObject.playerBody = this.physics.add.sprite(4320, 4320, 'dudebody')
+		variableGroup.playerObject.playerHead = this.physics.add.sprite(4320, 4320, 'emptyplayer')
+		variableGroup.playerObject.playerBody = this.physics.add.sprite(4320, 4320, 'emptyplayer')
 		console.log('variableGroup.playerObject = ', variableGroup.playerObject);
 		////////////////////////END experimental playerObject grouping code/////////////////////////////////
 		
@@ -129,46 +127,9 @@ var GameScene = new Phaser.Class({
 			frames: this.anims.generateFrameNumbers('dude2', {start: 5, end: 8}),
 			frameRate: 10,
 			repeat: -1
-			});
+		});
 
-		/*
-		this.anims.create({
-            key: 'leftbody',
-			frames: this.anims.generateFrameNumbers('dudebody', {start: 0, end: 3}),
-            //frames: this.anims.generateFrameNumbers('dudebody', {start: 0, end: 3}),
-            frameRate: 10,
-            repeat: -1
-        });
-		
-		
-        this.anims.create({
-            key: 'lefthead',
-			frames: this.anims.generateFrameNumbers('dudeheadpurple', {start: 0, end: 3}),
-            frameRate: 10,
-            repeat: -1
-        });
-		*/
-        /*this.anims.create({
-            key: 'turn',
-            frames: [{key: 'dude', frame: 4}],
-            frameRate: 20
-        });*/
-
-        /*this.anims.create({
-            key: 'rightbody',
-			frames: this.anims.generateFrameNumbers('dudebody', {start: 5, end: 8}),
-            frameRate: 10,
-            repeat: -1
-        });
-		
-        this.anims.create({
-            key: 'righthead',
-            frames: this.anims.generateFrameNumbers('dudeheadpurple', {start: 5, end: 8}),
-            frameRate: 10,
-            repeat: -1
-        });
-		*/
-////animation group testing////
+		////animation grouping////
 		////Left Facing Animations////
 		variableGroup.leftBody = {
 			key: 'leftbody',
@@ -275,31 +236,6 @@ var GameScene = new Phaser.Class({
 		////assign whatever animation is chosen above to variableGroup.standStill////
 		this.anims.create(variableGroup.standStill);
 		
-
-////trying to create an object to map animations to...////
-///make is so "when call "left" bring up head animation and body animation...something like that?////	
-		/*{
-			variableGroup.moveLeft; {
-				variableGroup.leftHead = 'lefthead',
-				console.log('variableGroup.moveLeft1 = ', variableGroup.moveLeft)
-				variableGroup.leftBody = 'leftbody'
-				console.log('variableGroup.moveLeft2 = ', variableGroup.moveLeft)
-				
-			};
-			console.log('variableGroup.moveLeft3 = ', variableGroup.moveLeft)
-			variableGroup.moveRight; {
-				variableGroup.rightHead = 'righthead',
-				variableGroup.Rightbody = 'rightbody'
-			};
-
-		};*/
-		
-////this also doesn't work...///
-		/*variableGroup.moveLeft = variableGroup.leftHead + variableGroup.leftBody;
-		console.log('variableGroup.moveLeft1 = ', variableGroup.moveLeft) */
-////apparently you can not call animation keys from arrays either...////
-		variableGroup.moveLeft = ['lefthead', 'leftbody'];
-		
 		
         ////go - this; is some how important to representing non-local player movement////
         ////line 78 of multiplayer.js updates player position only "if go"////
@@ -371,16 +307,7 @@ var GameScene = new Phaser.Class({
 		variableGroup.playerObject.playerHead.setVelocityY(velocityY);
 		variableGroup.playerObject.playerBody.setVelocityX(velocityX);
 		variableGroup.playerObject.playerBody.setVelocityY(velocityY);	
-		/*if (oldVelocityX != velocityX) {
-			emit_movement();
-			oldVelocityX = velocityX
-		}
-		if (oldVelocityY != velocityY) {
-			emit_movement();
-			oldVelocityY = velocityY
-		}
-		console.log('oldVelocityX = ', oldVelocityX);
-		console.log('velocityX = ', velocityX);*/
+
         //Notify server if we have either velocity OR the previous frame had some movement (so that it receives stops)
 		if (velocityX || velocityY || movement.left || movement.right || movement.up || movement.down) {
             //Update actual movement before sending
