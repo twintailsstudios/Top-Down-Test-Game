@@ -65,6 +65,8 @@ var LoginScene = new Phaser.Class({
 	},
 	
 	update: function () {
+		////this moniters the "headSelect" variable and will display different images depending on it's value
+		////headSelect will later be used to define what animations are being used in GameScene.js
 		if (variableGroup.headSelect == 1) {
 			variableGroup.headSelectIcon = this.add.image(1170, 378, 'headselectpurple').setScrollFactor(0);
 			variableGroup.headSelectIcon.depth = 10;
