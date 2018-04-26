@@ -1,8 +1,8 @@
 {
-  "name": "server",
+  "name": "Top-Down-Test-Game",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Top-Down-Test-Game",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2",
-    "npm": "^5.7.1",
+    "npm": "^5.8.0",
     "phaser": "^3.2.0",
     "socket.io": "^2.0.4"
   }

@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8" />
+	<meta charset="UTF-8"/>
+	<meta http-equiv="x-ua-compatible" content="ie=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 	<title>Top Down Multiplayer Test Game</title>
 	
 	<script src="//cdn.jsdelivr.net/npm/phaser@3.3.0/dist/phaser.js"></script>
+	<script src="http://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/client/js/multiplayer.js"></script>
 	<script src="/client/js/functions.js"></script>
@@ -14,15 +19,32 @@
 	<script src="/client/js/gamescene.js"></script>
 	<script src="/client/js/index.js"></script>
 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-	
 	<style type="text/css">
+		html {
+			box-sizing: border-box;
+		}
+
+		*, *:before, *:after {
+			box-sizing: inherit;
+		}
+
 		body {
 			margin: 0;
+		}
+
+		#overlay {
+			position:fixed;
+			top:0;
+			left:0;
+			bottom:0;
+			right:0;
+			z-index:1;
 		}
 	</style>
 </head>
 <body>
-
+	<div id="overlay"></div>
 </body>
 </html>
