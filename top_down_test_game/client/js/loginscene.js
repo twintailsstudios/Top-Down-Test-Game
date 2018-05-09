@@ -10,14 +10,6 @@ var LoginScene = new Phaser.Class({
 	////creates login button and launches GameScene when button is clicked////
 	create: function () {
 		console.log('LoginScene Started');
-		//loginButton
-		let buttonPress = this;
-		variableGroup.numberButton = this.add.image(900, 500, 'loginbutton').setScrollFactor(0);
-		variableGroup.numberButton.depth = 6;
-		variableGroup.numberButton.setInteractive();
-		variableGroup.numberButton.on('pointerdown', function () {
-			variableGroup.ioSystem.emit('login', {user:'Pending'}); //TODO: Fill out login request from client
-		});
 		variableGroup.ioSystem.on('login', (response) => { //TODO: Handle login response from server
 			////launch only if new login with no saved sprite////
 			variableGroup.characterSelect = this.add.image(900, 500, 'characterselect').setScrollFactor(0);
