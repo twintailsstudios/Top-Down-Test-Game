@@ -8,7 +8,7 @@
 	
 	<script src="//cdn.jsdelivr.net/npm/phaser@3.3.0/dist/phaser.js"></script>
 	<script src="http://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/client/js/multiplayer.js"></script>
@@ -19,32 +19,59 @@
 	<script src="/client/js/gamescene.js"></script>
 	<script src="/client/js/index.js"></script>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
 	<style type="text/css">
-		html {
-			box-sizing: border-box;
-		}
-
-		*, *:before, *:after {
-			box-sizing: inherit;
-		}
-
 		body {
 			margin: 0;
 		}
 
-		#overlay {
+		#ui {
 			position:fixed;
-			top:0;
-			left:0;
-			bottom:0;
-			right:0;
-			z-index:1;
+			left:0; top:0; height:0;
+			z-index: 1;
+		}
+
+		#ui .card {
+			width:18rem;
+			position:absolute;
+			z-index:2;
+			display:none;
+		}
+
+		#ui .card-header, #ui .card-body {
+			padding: 4px 8px;
+		}
+
+		#ui .card-header {
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		#ui .dragFrom {
+			cursor:move;
 		}
 	</style>
 </head>
 <body>
-	<div id="overlay"></div>
+	<div id="ui">
+		<div class="card draggable">
+			<div class="card-header dragFrom">Example Title</div>
+			<div class="card-body">Example Body</div>
+		</div>
+		<div id="uiLogin" class="card draggable" style="left:800px; top:400px;">
+			<div class="card-header dragFrom">Login</div>
+			<div class="card-body">
+				<div class="form-group">
+					<label for="uiLogin_username">Username</label>
+					<input type="text" class="form-control" id="uiLogin_username" aria-describedby="uiLogin_usernameHelp" placeholder="Enter username">
+					<small id="uiLogin_usernameHelp" class="form-text text-muted">This isn't saved yet and just for identification.</small>
+				</div>
+				<button id="uiLogin_loginButton" type="button" class="btn btn-primary">Click to login</button>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

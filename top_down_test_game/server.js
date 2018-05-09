@@ -39,7 +39,7 @@ io.on('connection', function socket_handler(socket) {
 	console.log("Connection to system from ", socket.id);
 
 	socket.on("login", (data) => {
-		console.log("Login request from ", socket.id);
+		console.log("Login request from ", socket.id, " requesting ", data.user);
 		//TODO: Fill out server login response
 		socket.emit('login');
 	});

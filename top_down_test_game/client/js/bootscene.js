@@ -76,8 +76,7 @@ var BootScene = new Phaser.Class({
 	},
 	create: function() {
 		variableGroup.ioSystem = io(location.host); //Connect here, since we may eventually do MOTD type things before login
-		boot.scene.start('LoginScene');
+		$('#uiLogin').show();
+		//boot.scene.start('LoginScene');
 	}
 });
-
-	
