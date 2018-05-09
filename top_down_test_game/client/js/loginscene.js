@@ -10,6 +10,7 @@ var LoginScene = new Phaser.Class({
 	////creates login button and launches GameScene when button is clicked////
 	create: function () {
 		console.log('LoginScene Started');
+		let buttonPress = this;
 		variableGroup.ioSystem.on('login', (response) => { //TODO: Handle login response from server
 			////launch only if new login with no saved sprite////
 			variableGroup.characterSelect = this.add.image(900, 500, 'characterselect').setScrollFactor(0);
